@@ -53,6 +53,7 @@ public class Main {
         Scanner in = new Scanner(System.in);
         Command com = null;
         while(com!=Command.XS){
+            System.out.print(">");
             com = getCommand(in);
             switch (com){
                 case IE:
@@ -119,14 +120,53 @@ public class Main {
 
 
     private static void addStudent(Scanner in){
+        String login=in.next();
+        String nome=in.nextLine().trim();
+        int idade=in.nextInt();
+        String localidade=in.nextLine().trim();
+        String universidade=in.nextLine();
+        System.out.println();
+
+        System.out.println(Msg.STUDENT_ADDED);
+
     }
     private static void studentData(Scanner in){
+        String login=in.next();
+        in.nextLine();
+        System.out.println();
+
+        //System.out.printf(Msg.STUDENT_DATA);
     }
     private static void addManager(Scanner in){
+        String login=in.next();
+        String nome=in.nextLine().trim();
+        in.nextLine();
+        String universidade=in.nextLine();
+        System.out.println();
+
+        System.out.println(Msg.MANAGER_ADDED);
     }
     private static void managerData(Scanner in){
+        String login=in.next();
+        in.nextLine();
+        System.out.println();
+
+        //System.out.printf(Msg.MANAGER_DATA);
     }
     private static void addRoom(Scanner in){
+        String codigo = in.next();
+        String login = in.next();
+        in.nextLine();
+        String nomeResidencia= in.nextLine();
+        String universidade = in.nextLine();
+        String localidade = in.nextLine();
+        int andar = in.nextInt();
+        in.nextLine();
+        String descricao = in.nextLine();
+        System.out.println();
+
+        System.out.println(Msg.ROOM_ADDED);
+
     }
     private static void roomData(Scanner in){
     }
