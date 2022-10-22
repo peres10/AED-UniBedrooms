@@ -1,13 +1,17 @@
+import exceptions.UserAlreadyExistsException;
+import unibedrooms.UniBedroomsDataBase;
+import unibedrooms.UniBedroomsDataBaseClass;
+
+import java.io.*;
 import java.util.Scanner;
 
 /**
  * @author Alexandre Peres 61615
  * @author Tomás Ferreira 61733
- *
  */
 public class Main {
 
-    private static final String DATA_FILE = "";
+    private static final String DATA_FILE = "uniBedroomsData.dat";
 
     /**
      * Commands used in the console
@@ -50,50 +54,53 @@ public class Main {
      * Command interpreter
      */
     private static void commands(){
+        UniBedroomsDataBase data = load();
         Scanner in = new Scanner(System.in);
         Command com = null;
+
         while(com!=Command.XS){
             System.out.print(">");
             com = getCommand(in);
             switch (com){
                 case IE:
-                    addStudent(in);
+                    addStudent(in,data);
                     break;
                 case DE:
-                    studentData(in);
+                    studentData(in,data);
                     break;
                 case IG:
-                    addManager(in);
+                    addManager(in,data);
                     break;
                 case DG:
-                    managerData(in);
+                    managerData(in,data);
                     break;
                 case IQ:
-                    addRoom(in);
+                    addRoom(in,data);
                     break;
                 case DQ:
-                    roomData(in);
+                    roomData(in,data);
                     break;
                 case MQ:
-                    modifyRoomState(in);
+                    modifyRoomState(in,data);
                     break;
                 case RQ:
-                    removeRoom(in);
+                    removeRoom(in,data);
                     break;
                 case IC:
-                    addCandidature(in);
+                    addCandidature(in,data);
                     break;
                 case AC :
-                    acceptCandidature(in);
+                    acceptCandidature(in,data);
                     break;
                 case LC:
-                    listRoomCandidatures(in);
+                    listRoomCandidatures(in,data);
                     break;
                 case LQ:
                     break;
                 case LL:
                     break;
                 case XS:
+                    System.out.println(Msg.EXIT_MSG);
                     break;
                 default:
                     break;
@@ -101,6 +108,7 @@ public class Main {
             System.out.println();
         }
         in.close();
+        save(data);
     }
 
     /**
@@ -118,8 +126,13 @@ public class Main {
     }
 
 
-
-    private static void addStudent(Scanner in){
+    /**
+     * Adds a student to the system
+     *
+     * @param in - Input Scanner
+     * @param data - UniBedrooms data
+     */
+    private static void addStudent(Scanner in, UniBedroomsDataBase data){
         String login=in.next();
         String nome=in.nextLine().trim();
         int idade=in.nextInt();
@@ -127,17 +140,23 @@ public class Main {
         String universidade=in.nextLine();
         System.out.println();
 
-        System.out.println(Msg.STUDENT_ADDED);
+        try{
+            data.addStudent(login,nome,idade,localidade,universidade);
+            System.out.println(Msg.STUDENT_ADDED);
+        } catch (UserAlreadyExistsException e) {
+            System.out.println(e.getMessage());
+        }
+
 
     }
-    private static void studentData(Scanner in){
+    private static void studentData(Scanner in, UniBedroomsDataBase data){
         String login=in.next();
         in.nextLine();
         System.out.println();
 
         //System.out.printf(Msg.STUDENT_DATA);
     }
-    private static void addManager(Scanner in){
+    private static void addManager(Scanner in, UniBedroomsDataBase data){
         String login=in.next();
         String nome=in.nextLine().trim();
         in.nextLine();
@@ -146,14 +165,14 @@ public class Main {
 
         System.out.println(Msg.MANAGER_ADDED);
     }
-    private static void managerData(Scanner in){
+    private static void managerData(Scanner in, UniBedroomsDataBase data){
         String login=in.next();
         in.nextLine();
         System.out.println();
 
         //System.out.printf(Msg.MANAGER_DATA);
     }
-    private static void addRoom(Scanner in){
+    private static void addRoom(Scanner in, UniBedroomsDataBase data){
         String codigo = in.next();
         String login = in.next();
         in.nextLine();
@@ -168,19 +187,55 @@ public class Main {
         System.out.println(Msg.ROOM_ADDED);
 
     }
-    private static void roomData(Scanner in){
+    private static void roomData(Scanner in, UniBedroomsDataBase data){
     }
-    private static void modifyRoomState(Scanner in){
+    private static void modifyRoomState(Scanner in, UniBedroomsDataBase data){
     }
-    private static void removeRoom(Scanner in){
+    private static void removeRoom(Scanner in, UniBedroomsDataBase data){
     }
-    private static void addCandidature(Scanner in){
+    private static void addCandidature(Scanner in, UniBedroomsDataBase data){
     }
-    private static void acceptCandidature(Scanner in){
+    private static void acceptCandidature(Scanner in, UniBedroomsDataBase data){
     }
-    private static void listRoomCandidatures(Scanner in){
+    private static void listRoomCandidatures(Scanner in, UniBedroomsDataBase data){
+    }
+
+    /**
+     * Loads the program from an external file if the file exists
+     *
+     * @return
+     */
+    private static UniBedroomsDataBase load(){
+        UniBedroomsDataBase data;
+        try{
+            ObjectInputStream file = new ObjectInputStream(
+                    new FileInputStream(DATA_FILE)
+            );
+            data = (UniBedroomsDataBase) file.readObject();
+            file.close();
+        } catch (IOException | ClassNotFoundException e){
+            data = new UniBedroomsDataBaseClass();
+        }
+        return data;
     }
 
 
+    /**
+     * Saves the program to an external file, creates a file if there is not one already
+     *
+     * @param data
+     */
+    private static void save(UniBedroomsDataBase data){
+        try{
+            ObjectOutputStream file = new ObjectOutputStream(
+                    new FileOutputStream(DATA_FILE)
+            );
+            file.writeObject(data);
+            file.flush();
+            file.close();
+        } catch(IOException e){
+            System.out.println("Error saving: "+e.getMessage());
+        }
+    }
 
 }
