@@ -100,7 +100,7 @@ public class Main {
                 case LL:
                     break;
                 case XS:
-                    System.out.println(Msg.EXIT_MSG);
+                    System.out.println(Msg.EXIT_MSG.getMsg());
                     break;
                 default:
                     break;
@@ -142,7 +142,7 @@ public class Main {
 
         try{
             data.addStudent(login,nome,idade,localidade,universidade);
-            System.out.println(Msg.STUDENT_ADDED);
+            System.out.println(Msg.STUDENT_ADDED.getMsg());
         } catch (UserAlreadyExistsException e) {
             System.out.println(e.getMessage());
         }
