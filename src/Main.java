@@ -1,6 +1,5 @@
-import exceptions.UserAlreadyExistsException;
-import unibedrooms.UniBedroomsDataBase;
-import unibedrooms.UniBedroomsDataBaseClass;
+import exceptions.*;
+import unibedrooms.*;
 
 import java.io.*;
 import java.util.Scanner;
@@ -59,7 +58,6 @@ public class Main {
         Command com = null;
 
         while(com!=Command.XS){
-            System.out.print(">");
             com = getCommand(in);
             switch (com){
                 case IE:
@@ -138,7 +136,6 @@ public class Main {
         int idade=in.nextInt();
         String localidade=in.nextLine().trim();
         String universidade=in.nextLine();
-        System.out.println();
 
         try{
             data.addStudent(login,nome,idade,localidade,universidade);
@@ -146,29 +143,56 @@ public class Main {
         } catch (UserAlreadyExistsException e) {
             System.out.println(e.getMessage());
         }
-
-
     }
+
+    /**
+     * Gets the information of a student
+     *
+     * @param in - Input Scanner
+     * @param data - UniBedrooms data
+     */
     private static void studentData(Scanner in, UniBedroomsDataBase data){
         String login=in.next();
         in.nextLine();
-        System.out.println();
 
-        //System.out.printf(Msg.STUDENT_DATA);
+        try{
+            Student student = data.getStudent(login);
+            System.out.printf(Msg.STUDENT_DATA.getMsg(),student.getLogin(),student.getName(),student.getAge(),student.getLocal(),student.getUniversityName());
+        } catch (StudentDoesNotExistException e){
+            System.out.println(e.getMessage());
+        }
     }
+
+
+    /**
+     * Adds a manager to the system
+     *
+     * @param in - Input Scanner
+     * @param data - UniBedrooms data
+     */
     private static void addManager(Scanner in, UniBedroomsDataBase data){
         String login=in.next();
         String nome=in.nextLine().trim();
-        in.nextLine();
         String universidade=in.nextLine();
-        System.out.println();
 
-        System.out.println(Msg.MANAGER_ADDED);
+        try{
+            data.addManager(login,nome,universidade);
+            System.out.println(Msg.MANAGER_ADDED.getMsg());
+        } catch (UserAlreadyExistsException e){
+            System.out.println(e.getMessage());
+        }
+
     }
     private static void managerData(Scanner in, UniBedroomsDataBase data){
         String login=in.next();
         in.nextLine();
-        System.out.println();
+
+        try{
+            Manager manager = data.getManager(login);
+            System.out.printf(Msg.MANAGER_DATA.getMsg(),manager.getLogin(),manager.getName(),manager.getUniversityName());
+        } catch(ManagerDoesNotExistException e){
+            System.out.println(e.getMessage());
+        }
 
         //System.out.printf(Msg.MANAGER_DATA);
     }
@@ -184,7 +208,7 @@ public class Main {
         String descricao = in.nextLine();
         System.out.println();
 
-        System.out.println(Msg.ROOM_ADDED);
+        System.out.println(Msg.ROOM_ADDED.getMsg());
 
     }
     private static void roomData(Scanner in, UniBedroomsDataBase data){

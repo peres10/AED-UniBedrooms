@@ -2,7 +2,7 @@ package unibedrooms;
 
 import dataStructures.DoubleList;
 import dataStructures.Iterator;
-import exceptions.UserAlreadyExistsException;
+import exceptions.*;
 
 
 /**
@@ -28,25 +28,52 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
 
     @Override
     public void addStudent(String login, String name, int age, String local, String university) throws UserAlreadyExistsException {
-        if(searchUser(login)!=null)
+        if(searchUser(login) != null)
             throw new UserAlreadyExistsException();
         else{
-            users.addLast(new StudentClass(login,name,university,age,name));
+            users.addLast(new StudentClass(login,name,university,age,local));
+        }
+    }
+
+    @Override
+    public Student getStudent(String login) throws StudentDoesNotExistException {
+        User student = searchUser(login);
+        if(!(student instanceof Student))
+            throw new StudentDoesNotExistException();
+        else{
+            return (Student) student;
+        }
+    }
+
+    @Override
+    public void addManager(String login, String name, String university) throws UserAlreadyExistsException {
+        if(searchUser(login) != null)
+            throw new UserAlreadyExistsException();
+        else{
+            users.addLast(new ManagerClass(login,name,university));
+        }
+    }
+
+    @Override
+    public Manager getManager(String login) throws ManagerDoesNotExistException {
+        User manager = searchUser(login);
+        if(!(manager instanceof Manager))
+            throw new ManagerDoesNotExistException();
+        else{
+            return (Manager) manager;
         }
     }
 
 
 
 
-
     private User searchUser(String login){
-        User user = null;
         Iterator<User> it = users.iterator();
         while(it.hasNext()){
-            user = it.next();
+            User user = it.next();
             if(user.getLogin().equals(login))
-                break;
+                return user;
         }
-        return user;
+        return null;
     }
 }
