@@ -201,8 +201,6 @@ public class Main {
         } catch(ManagerDoesNotExistException e){
             System.out.println(e.getMessage());
         }
-
-        //System.out.printf(Msg.MANAGER_DATA);
     }
 
     /**
@@ -253,6 +251,12 @@ public class Main {
 
     }
 
+    /**
+     * Modifies a state of a room
+     *
+     * @param in - Input Scanner
+     * @param data - UniBedrooms data
+     */
     private static void modifyRoomState(Scanner in, UniBedroomsDataBase data){
         String codigo = in.next();
         String loginGerente = in.next();
@@ -269,12 +273,53 @@ public class Main {
             System.out.println(e.getMessage());
         }
     }
+
+    /**
+     * Removes a room from the system
+     *
+     * @param in - Input Scanner
+     * @param data - UniBedrooms data
+     */
     private static void removeRoom(Scanner in, UniBedroomsDataBase data){
+        String codigo = in.next();
+        String loginManager = in.next();
+        in.nextLine();
+
+        try{
+            data.removeRoom(codigo,loginManager);
+        } catch(RoomDoesNotExistException e){
+            System.out.println(e.getMessage());
+        } catch(NonAuthorizedOperationException e){
+            System.out.println(e.getMessage());
+        } catch(ActiveCandidaturesException e){
+            System.out.println(e.getMessage());
+        }
     }
+
+    /**
+     * Adds a candidature to a room
+     *
+     * @param in - Input Scanner
+     * @param data - UniBedrooms data
+     */
     private static void addCandidature(Scanner in, UniBedroomsDataBase data){
     }
+
+    /**
+     * Accepts a candidature to a room
+     *
+     * @param in - Input Scanner
+     * @param data - UniBedrooms data
+     */
     private static void acceptCandidature(Scanner in, UniBedroomsDataBase data){
     }
+
+    /**
+     * Lists the candidatures to a room
+     *
+     * @param in - Input Scanner
+     * @param data - UniBedrooms data
+     */
     private static void listRoomCandidatures(Scanner in, UniBedroomsDataBase data){
     }
 

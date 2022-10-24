@@ -138,4 +138,9 @@ public class RoomClass implements Room {
         else
             state=newState;
     }
+
+    @Override
+    public boolean hasCandidatures() {
+        return !candidatures.isEmpty();
+    }
 }

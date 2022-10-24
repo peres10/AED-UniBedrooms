@@ -102,6 +102,17 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
         room.modifyState(newState);
     }
 
+    @Override
+    public void removeRoom(String code, String loginManager) throws RoomDoesNotExistException, NonAuthorizedOperationException, ActiveCandidaturesException {
+        Room room = getRoom(code);
+        if(!room.getManagerLogin().equals(loginManager))
+            throw new NonAuthorizedOperationException();
+        if(room.hasCandidatures())
+            throw new ActiveCandidaturesException();
+        else
+            rooms.remove(room);
+    }
+
 
     private User searchUser(String login){
         Iterator<User> it = users.iterator();

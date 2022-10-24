@@ -82,4 +82,11 @@ public interface Room extends Serializable {
      * @throws ActiveCandidaturesException - if the new state is "ocupado" and room still has active candidatures
      */
     void modifyState(String newState) throws ActiveCandidaturesException;
+
+    /**
+     * Gets if there are candidatures to a room
+     *
+     * @return - true if are candidatures, false if not
+     */
+    boolean hasCandidatures();
 }
