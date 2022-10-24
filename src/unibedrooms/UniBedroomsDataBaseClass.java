@@ -85,6 +85,15 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
         }
     }
 
+    @Override
+    public Room getRoom(String code) throws RoomDoesNotExistException {
+        Room room = searchRoom(code);
+        if(room == null)
+            throw new RoomDoesNotExistException();
+        else
+            return room;
+    }
+
 
     private User searchUser(String login){
         Iterator<User> it = users.iterator();

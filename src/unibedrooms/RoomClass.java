@@ -12,6 +12,12 @@ public class RoomClass implements Room {
     static final long serialVersionUID = 0L;
 
     /**
+     * Possible states of the rooms (free or occupied)
+     */
+    static final String stateFree="livre";
+    static final String stateOccupied="ocupado";
+
+    /**
      * A room's code
      */
     private final String code;
@@ -42,6 +48,11 @@ public class RoomClass implements Room {
     private final String description;
 
     /**
+     * The state of the room
+     */
+    private String state;
+
+    /**
      *
      * @param code - the room's code
      * @param residence - the name of the room's residence
@@ -57,10 +68,41 @@ public class RoomClass implements Room {
         this.local=local;
         this.floor=floor;
         this.description=description;
+        this.state=stateFree;
     }
 
     @Override
     public String getRoomCode() {
         return code;
+    }
+
+    @Override
+    public String getResidence() {
+        return residence;
+    }
+
+    @Override
+    public String getUniversityName() {
+        return university;
+    }
+
+    @Override
+    public String getLocal() {
+        return local;
+    }
+
+    @Override
+    public int getFloor() {
+        return floor;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public String getEstado() {
+        return state;
     }
 }

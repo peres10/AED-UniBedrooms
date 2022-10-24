@@ -221,6 +221,15 @@ public class Main {
 
     }
     private static void roomData(Scanner in, UniBedroomsDataBase data){
+        String codigo = in.next();
+        in.nextLine();
+        try{
+            Room room = data.getRoom(codigo);
+            System.out.printf(Msg.ROOM_DATA.getMsg(),room.getRoomCode(),room.getResidence(),room.getUniversityName(),room.getLocal(),room.getFloor(),room.getDescription(),room.getEstado());
+        } catch(RoomDoesNotExistException e){
+            System.out.println(e.getMessage());
+        }
+
     }
     private static void modifyRoomState(Scanner in, UniBedroomsDataBase data){
     }
