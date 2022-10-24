@@ -35,8 +35,8 @@ public interface UniBedroomsDataBase extends Serializable {
      * Adds a manager to the system
      *
      * @param login - a manager's login
-     * @param nome - a manager's name
-     * @param universidade - the name of the university that the manager belongs to
+     * @param name - a manager's name
+     * @param university - the name of the university that the manager belongs to
      * @throws UserAlreadyExistsException - if there is someone with the same login already registered
      */
     void addManager(String login, String name, String university) throws UserAlreadyExistsException;
@@ -49,4 +49,20 @@ public interface UniBedroomsDataBase extends Serializable {
      * @throws ManagerDoesNotExistException - if a manager with a given login does not exist in the system
      */
     Manager getManager(String login) throws ManagerDoesNotExistException;
+
+
+    /**
+     * Adds a room to the system
+     *
+     * @param code - a room's code
+     * @param login - the login of manager
+     * @param nameResidence - the name of the residence
+     * @param universityName - the name of the university
+     * @param local - the location of the room
+     * @param floor - the floor of the room
+     * @param description - the description of the room
+     * @throws RoomAlreadyExistsException - if exists already a room in the system with the same name
+     * @throws ManagerDoesNotExistException - if a manager with a given login does not exist in the system
+     */
+    void addRoom(String code, String login, String nameResidence, String universityName, String local, int floor, String description) throws RoomAlreadyExistsException, ManagerDoesNotExistException;
 }

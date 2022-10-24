@@ -21,8 +21,17 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
      */
     private DoubleList<User> users;
 
+    /**
+     * The rooms in the database
+      */
+    private DoubleList<Room> rooms;
+
+    /**
+     * A Database that has a list of users and a list of rooms
+     */
     public UniBedroomsDataBaseClass(){
-        users = new DoubleList<>();
+        users = new DoubleList<User>();
+        rooms = new DoubleList<Room>();
     }
 
 
@@ -64,7 +73,15 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
         }
     }
 
-
+    @Override
+    public void addRoom(String code, String login, String nameResidence, String universityName, String local, int floor, String description) throws RoomAlreadyExistsException, ManagerDoesNotExistException {
+        User manager = getManager(login);
+        if(searchRoom(code) != null)
+            throw new RoomAlreadyExistsException();
+        else{
+            rooms.addLast(new RoomClass(code,nameResidence,universityName,local,floor,description));
+        }
+    }
 
 
     private User searchUser(String login){
@@ -73,6 +90,17 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
             User user = it.next();
             if(user.getLogin().equals(login))
                 return user;
+        }
+        return null;
+    }
+
+    private Room searchRoom(String roomCode){
+        Iterator<Room> it = rooms.iterator();
+        while(it.hasNext()){
+            Room room = it.next();
+            System.out.println(room.getRoomCode());
+            if(room.getRoomCode().toUpperCase().equals(roomCode.toUpperCase()));
+                return room;
         }
         return null;
     }

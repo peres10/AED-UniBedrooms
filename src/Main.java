@@ -1,4 +1,5 @@
 import exceptions.*;
+import jdk.swing.interop.SwingInterOpUtils;
 import unibedrooms.*;
 
 import java.io.*;
@@ -206,9 +207,15 @@ public class Main {
         int andar = in.nextInt();
         in.nextLine();
         String descricao = in.nextLine();
-        System.out.println();
 
-        System.out.println(Msg.ROOM_ADDED.getMsg());
+        try{
+            data.addRoom(codigo,login,nomeResidencia,universidade,localidade,andar,descricao);
+            System.out.println(Msg.ROOM_ADDED.getMsg());
+        } catch(RoomAlreadyExistsException e){
+            System.out.println(e.getMessage());
+        } catch (ManagerDoesNotExistException e){
+            System.out.println(e.getMessage());
+        }
 
     }
     private static void roomData(Scanner in, UniBedroomsDataBase data){
