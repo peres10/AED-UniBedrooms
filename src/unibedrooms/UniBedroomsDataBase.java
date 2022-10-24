@@ -63,6 +63,7 @@ public interface UniBedroomsDataBase extends Serializable {
      * @param description - the description of the room
      * @throws RoomAlreadyExistsException - if exists already a room in the system with the same name
      * @throws ManagerDoesNotExistException - if a manager with a given login does not exist in the system
+     * @throws NonAuthorizedOperationException - if a manager does not belong to the same university as the room
      */
-    void addRoom(String code, String login, String nameResidence, String universityName, String local, int floor, String description) throws RoomAlreadyExistsException, ManagerDoesNotExistException;
+    void addRoom(String code, String login, String nameResidence, String universityName, String local, int floor, String description) throws RoomAlreadyExistsException, ManagerDoesNotExistException, NonAuthorizedOperationException;
 }

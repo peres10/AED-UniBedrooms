@@ -215,6 +215,8 @@ public class Main {
             System.out.println(e.getMessage());
         } catch (ManagerDoesNotExistException e){
             System.out.println(e.getMessage());
+        } catch (NonAuthorizedOperationException e){
+            System.out.println(e.getMessage());
         }
 
     }
