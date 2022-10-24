@@ -304,6 +304,24 @@ public class Main {
      * @param data - UniBedrooms data
      */
     private static void addCandidature(Scanner in, UniBedroomsDataBase data){
+        String login = in.next();
+        String code = in.next();
+        in.nextLine();
+
+        try{
+            data.insertCandidature(login,code);
+            System.out.println(Msg.CANDIDATURE_ADDED.getMsg());
+        } catch(StudentDoesNotExistException e){
+            System.out.println(e.getMessage());
+        } catch(NonAuthorizedOperationException e){
+            System.out.println(e.getMessage());
+        } catch (RoomDoesNotExistException e){
+            System.out.println(e.getMessage());
+        } catch (RoomOccupiedException e){
+            System.out.println(e.getMessage());
+        } catch (AlreadyExistsCandidatureException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
