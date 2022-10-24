@@ -287,6 +287,7 @@ public class Main {
 
         try{
             data.removeRoom(codigo,loginManager);
+            System.out.println(Msg.ROOM_REMOVED.getMsg());
         } catch(RoomDoesNotExistException e){
             System.out.println(e.getMessage());
         } catch(NonAuthorizedOperationException e){
