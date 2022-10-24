@@ -1,5 +1,8 @@
 package unibedrooms;
 
+import dataStructures.DoubleList;
+import exceptions.ActiveCandidaturesException;
+
 /**
  * @author Alexandre Peres 61615
  * @author Tomás Ferreira 61733
@@ -53,6 +56,16 @@ public class RoomClass implements Room {
     private String state;
 
     /**
+     * The manager of the room
+     */
+    private Manager manager;
+
+    /**
+     * List of candidatures to the room
+     */
+    DoubleList<Integer> candidatures;
+
+    /**
      *
      * @param code - the room's code
      * @param residence - the name of the room's residence
@@ -61,7 +74,7 @@ public class RoomClass implements Room {
      * @param floor - the floor of the room
      * @param description - the description of the room
      */
-    public RoomClass(String code, String residence, String universityName, String local, int floor, String description) {
+    public RoomClass(String code, String residence, String universityName, String local, int floor, String description,Manager manager) {
         this.code=code;
         this.residence=residence;
         this.university=universityName;
@@ -69,6 +82,8 @@ public class RoomClass implements Room {
         this.floor=floor;
         this.description=description;
         this.state=stateFree;
+        this.manager=manager;
+        this.candidatures=new DoubleList<>();
     }
 
     @Override
@@ -104,5 +119,23 @@ public class RoomClass implements Room {
     @Override
     public String getEstado() {
         return state;
+    }
+
+    @Override
+    public String getManagerLogin() {
+        return manager.getLogin();
+    }
+
+    /*@Override
+    public int getNumberOfCandidatures() {
+        return candidatures.size();
+    }*/
+
+    @Override
+    public void modifyState(String newState) throws ActiveCandidaturesException {
+        if(newState.equals(stateOccupied) && !candidatures.isEmpty())
+            throw new ActiveCandidaturesException();
+        else
+            state=newState;
     }
 }

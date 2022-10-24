@@ -184,6 +184,13 @@ public class Main {
         }
 
     }
+
+    /**
+     * Gets the information of a manager
+     *
+     * @param in - Input Scanner
+     * @param data - UniBedrooms data
+     */
     private static void managerData(Scanner in, UniBedroomsDataBase data){
         String login=in.next();
         in.nextLine();
@@ -197,6 +204,13 @@ public class Main {
 
         //System.out.printf(Msg.MANAGER_DATA);
     }
+
+    /**
+     * Adds a room to the system
+     *
+     * @param in - Input Scanner
+     * @param data - UniBedrooms data
+     */
     private static void addRoom(Scanner in, UniBedroomsDataBase data){
         String codigo = in.next();
         String login = in.next();
@@ -220,6 +234,13 @@ public class Main {
         }
 
     }
+
+    /**
+     * Gets the information of a room
+     *
+     * @param in - Input Scanner
+     * @param data - UniBedrooms data
+     */
     private static void roomData(Scanner in, UniBedroomsDataBase data){
         String codigo = in.next();
         in.nextLine();
@@ -231,7 +252,22 @@ public class Main {
         }
 
     }
+
     private static void modifyRoomState(Scanner in, UniBedroomsDataBase data){
+        String codigo = in.next();
+        String loginGerente = in.next();
+        in.nextLine();
+        String estado = in.nextLine();
+        try{
+            data.updateRoomState(codigo,loginGerente,estado);
+            System.out.println(Msg.ROOM_MODIFIED.getMsg());
+        } catch (RoomDoesNotExistException e){
+            System.out.println(e.getMessage());
+        } catch (NonAuthorizedOperationException e){
+            System.out.println(e.getMessage());
+        } catch (ActiveCandidaturesException e){
+            System.out.println(e.getMessage());
+        }
     }
     private static void removeRoom(Scanner in, UniBedroomsDataBase data){
     }

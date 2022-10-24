@@ -75,13 +75,13 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
 
     @Override
     public void addRoom(String code, String login, String nameResidence, String universityName, String local, int floor, String description) throws RoomAlreadyExistsException, ManagerDoesNotExistException, NonAuthorizedOperationException {
-        User manager = getManager(login);
+        Manager manager = getManager(login);
         if(searchRoom(code) != null)
             throw new RoomAlreadyExistsException();
         if(!managerFromUniversity(manager,universityName))
             throw new NonAuthorizedOperationException();
         else{
-            rooms.addLast(new RoomClass(code,nameResidence,universityName,local,floor,description));
+            rooms.addLast(new RoomClass(code,nameResidence,universityName,local,floor,description, manager));
         }
     }
 
@@ -92,6 +92,14 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
             throw new RoomDoesNotExistException();
         else
             return room;
+    }
+
+    @Override
+    public void updateRoomState(String code, String loginManager, String newState) throws RoomDoesNotExistException, NonAuthorizedOperationException, ActiveCandidaturesException {
+        Room room = getRoom(code);
+        if(!room.getManagerLogin().equals(loginManager))
+            throw new NonAuthorizedOperationException();
+        room.modifyState(newState);
     }
 
 

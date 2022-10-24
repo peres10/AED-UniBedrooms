@@ -1,5 +1,7 @@
 package unibedrooms;
 
+import exceptions.ActiveCandidaturesException;
+
 import java.io.Serializable;
 
 /**
@@ -56,4 +58,28 @@ public interface Room extends Serializable {
      * @return - state of the room ("livre" or "ocupado")
      */
     String getEstado();
+
+    /**
+     * Returns the login of the manager of the room
+     *
+     * @return - a login of a manager
+     */
+    String getManagerLogin();
+
+    //
+    /**
+     * Returns the number of candidatures to the room
+     *
+     * @return - number of candidatures
+     */
+    //int getNumberOfCandidatures();
+    //
+
+    /**
+     * Modifies the state of a room
+     *
+     * @param newState - the new state of the room
+     * @throws ActiveCandidaturesException - if the new state is "ocupado" and room still has active candidatures
+     */
+    void modifyState(String newState) throws ActiveCandidaturesException;
 }

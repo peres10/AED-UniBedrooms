@@ -75,4 +75,15 @@ public interface UniBedroomsDataBase extends Serializable {
      * @throws RoomDoesNotExistException - if a room with the given code does not exist in the system
      */
     Room getRoom(String code) throws RoomDoesNotExistException;
+
+    /**
+     * Modifies the state of a room
+     *
+     * @param code - a code of a room
+     * @param loginManager - the login of a manager
+     * @throws RoomDoesNotExistException - if a room with the given code does not exist
+     * @throws NonAuthorizedOperationException - if a manager does not belong to the same university as the room
+     * @throws ActiveCandidaturesException - if the new state is "ocupado" and room still has active candidatures
+     */
+    void updateRoomState(String code, String loginManager,String newState) throws RoomDoesNotExistException,NonAuthorizedOperationException,ActiveCandidaturesException;
 }
