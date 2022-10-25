@@ -107,7 +107,7 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
         Room room = getRoom(code);
         if(!room.getManagerLogin().equals(loginManager))
             throw new NonAuthorizedOperationException();
-        if(room.hasCandidatures())
+        if(room.hasRoomApplication())
             throw new ActiveCandidaturesException();
         else
             rooms.remove(room);
@@ -137,4 +137,23 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
     private boolean managerFromUniversity(User manager, String universityName){
         return manager.getUniversityName().equals(universityName);
     }
+
+
+	@Override
+	public void insertApplication(String login, String code) throws StudentDoesNotExistException, NonAuthorizedOperationException, RoomDoesNotExistException, RoomOccupiedException, AlreadyExistsCandidatureException {
+        Student student = getStudent(login);
+		if(((StudentClass)student).getNumberApplications() == 10)
+            throw new NonAuthorizedOperationException();
+		
+        Room room = getRoom(code);
+		if(room.getEstado() == "ocupado")
+			throw new RoomOccupiedException();
+		
+		RoomApplication application = new RoomApplicationClass(room, (StudentClass)student);
+		if(((StudentClass)student).hasApplicationToRoom(application))
+            throw new AlreadyExistsCandidatureException();
+		
+		room.addRoomApplication(application);
+		((StudentClass)student).addRoomApplication(application);
+	}
 }

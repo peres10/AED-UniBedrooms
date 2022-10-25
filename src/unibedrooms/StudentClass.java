@@ -1,5 +1,7 @@
 package unibedrooms;
 
+import dataStructures.DoubleList;
+
 /**
  * @author Alexandre Peres 61615
  * @author Tomás Ferreira 61733
@@ -21,7 +23,9 @@ public class StudentClass extends AbstractUser implements Student{
      */
     private final String local;
 
-
+    private RoomApplication[] roomApplications;
+    
+    private int applicationCount;
     /**
      * the StudentClass constructor
      *
@@ -35,6 +39,8 @@ public class StudentClass extends AbstractUser implements Student{
         super(login, name, universityName);
         this.age=age;
         this.local=local;
+        this.roomApplications = new RoomApplicationClass[10];
+        this.applicationCount = 0;
     }
 
     @Override
@@ -46,5 +52,25 @@ public class StudentClass extends AbstractUser implements Student{
     public int getAge() {
         return age;
     }
+    
+    public void addRoomApplication(RoomApplication application) {
+    	if(applicationCount < 10) {
+    		this.roomApplications[applicationCount] = application;
+    		applicationCount++;
+    	}
+    }
+    
+    public int getNumberApplications() {
+    	return applicationCount;
+    }
+
+	public boolean hasApplicationToRoom(RoomApplication application) {
+		for(int i = 0; i < applicationCount; i++) {
+			if(roomApplications[i].getStudentName().equals(application.getStudentName()) && roomApplications[i].getRoomCode().equals(application.getRoomCode()))
+				return true;
+		}
+			
+		return false;
+	}
 
 }

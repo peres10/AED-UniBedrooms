@@ -63,7 +63,7 @@ public class RoomClass implements Room {
     /**
      * List of candidatures to the room
      */
-    DoubleList<Integer> candidatures;
+    DoubleList<RoomApplication> roomApplication;
 
     /**
      *
@@ -83,7 +83,7 @@ public class RoomClass implements Room {
         this.description=description;
         this.state=stateFree;
         this.manager=manager;
-        this.candidatures=new DoubleList<>();
+        this.roomApplication=new DoubleList<>();
     }
 
     @Override
@@ -133,14 +133,19 @@ public class RoomClass implements Room {
 
     @Override
     public void modifyState(String newState) throws ActiveCandidaturesException {
-        if(newState.equals(stateOccupied) && !candidatures.isEmpty())
+        if(newState.equals(stateOccupied) && !roomApplication.isEmpty())
             throw new ActiveCandidaturesException();
         else
             state=newState;
     }
-
+    
     @Override
-    public boolean hasCandidatures() {
-        return !candidatures.isEmpty();
+    public boolean hasRoomApplication() {
+        return !roomApplication.isEmpty();
     }
+
+	@Override
+	public void addRoomApplication(RoomApplication application) {
+		this.roomApplication.addLast(application);
+	}
 }

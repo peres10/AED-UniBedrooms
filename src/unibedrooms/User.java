@@ -28,4 +28,5 @@ public interface User extends Serializable {
      *
      */
     String getUniversityName();
+
 }

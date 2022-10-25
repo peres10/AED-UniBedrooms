@@ -6,7 +6,7 @@ package exceptions;
  */
 public class ActiveCandidaturesException extends Exception{
 
-    /**
+	   /**
      * Serial Version UID of the Class
      */
     static final long serialVersionUID = 0L;

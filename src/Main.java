@@ -1,5 +1,4 @@
 import exceptions.*;
-import jdk.swing.interop.SwingInterOpUtils;
 import unibedrooms.*;
 
 import java.io.*;
@@ -309,7 +308,7 @@ public class Main {
         in.nextLine();
 
         try{
-            data.insertCandidature(login,code);
+            data.insertApplication(login,code);
             System.out.println(Msg.CANDIDATURE_ADDED.getMsg());
         } catch(StudentDoesNotExistException e){
             System.out.println(e.getMessage());

@@ -84,9 +84,16 @@ public interface Room extends Serializable {
     void modifyState(String newState) throws ActiveCandidaturesException;
 
     /**
-     * Gets if there are candidatures to a room
-     *
-     * @return - true if are candidatures, false if not
+     * Adds a room application
+     * 
+     * @param application - application to a room
      */
-    boolean hasCandidatures();
+    void addRoomApplication(RoomApplication application);
+    
+    /**
+     * Gets if there are applications to a room
+     *
+     * @return - true if are applications, false if not
+     */
+    boolean hasRoomApplication();
 }

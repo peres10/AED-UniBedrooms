@@ -27,8 +27,8 @@ public class Tests {
      */
     @Test public void test1() { test("input1.txt","output1.txt"); }
     @Test public void test2() { test("input2.txt","output2.txt"); }
-    //@Test public void test3() { test("input3.txt","output3.txt"); }
-    //@Test public void test4() { test("input4.txt","output4.txt"); }
+    @Test public void test3() { test("input3.txt","output3.txt"); }
+    @Test public void test4() { test("input4.txt","output4.txt"); }
     //@Test public void test5() { test("input5.txt","output5.txt"); }
     //@Test public void test6() { test("input6.txt","output6.txt"); }
     //@Test public void test7() { test("input7.txt","output7.txt"); }
