@@ -26,6 +26,8 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
       */
     private DoubleList<Room> rooms;
 
+    static final String stateOccupied="ocupado";
+    
     /**
      * A Database that has a list of users and a list of rooms
      */
@@ -75,9 +77,9 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
 
     @Override
     public void addRoom(String code, String login, String nameResidence, String universityName, String local, int floor, String description) throws RoomAlreadyExistsException, ManagerDoesNotExistException, NonAuthorizedOperationException {
-        Manager manager = getManager(login);
-        if(searchRoom(code) != null)
+    	if(searchRoom(code) != null)
             throw new RoomAlreadyExistsException();
+    	Manager manager = getManager(login);
         if(!managerFromUniversity(manager,universityName))
             throw new NonAuthorizedOperationException();
         else{
@@ -95,7 +97,7 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
     }
 
     @Override
-    public void updateRoomState(String code, String loginManager, String newState) throws RoomDoesNotExistException, NonAuthorizedOperationException, ActiveCandidaturesException {
+    public void updateRoomState(String code, String loginManager, String newState) throws RoomDoesNotExistException, NonAuthorizedOperationException, ActiveApplicationException {
         Room room = getRoom(code);
         if(!room.getManagerLogin().equals(loginManager))
             throw new NonAuthorizedOperationException();
@@ -103,12 +105,12 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
     }
 
     @Override
-    public void removeRoom(String code, String loginManager) throws RoomDoesNotExistException, NonAuthorizedOperationException, ActiveCandidaturesException {
+    public void removeRoom(String code, String loginManager) throws RoomDoesNotExistException, NonAuthorizedOperationException, ActiveApplicationException {
         Room room = getRoom(code);
         if(!room.getManagerLogin().equals(loginManager))
             throw new NonAuthorizedOperationException();
         if(room.hasRoomApplication())
-            throw new ActiveCandidaturesException();
+            throw new ActiveApplicationException();
         else
             rooms.remove(room);
     }
@@ -118,7 +120,7 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
         Iterator<User> it = users.iterator();
         while(it.hasNext()){
             User user = it.next();
-            if(user.getLogin().equals(login))
+            if(user.getLogin().equalsIgnoreCase(login))
                 return user;
         }
         return null;
@@ -135,7 +137,7 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
     }
 
     private boolean managerFromUniversity(User manager, String universityName){
-        return manager.getUniversityName().equals(universityName);
+        return manager.getUniversityName().equalsIgnoreCase(universityName);
     }
 
 
@@ -146,7 +148,7 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
             throw new NonAuthorizedOperationException();
 		
         Room room = getRoom(code);
-		if(room.getEstado() == "ocupado")
+		if(room.getEstado().equals(stateOccupied))
 			throw new RoomOccupiedException();
 		
 		RoomApplication application = new RoomApplicationClass(room, (StudentClass)student);
@@ -156,4 +158,37 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
 		room.addRoomApplication(application);
 		((StudentClass)student).addRoomApplication(application);
 	}
-}
+
+
+	@Override
+	public void acceptApplication(String code, String loginManager, String loginStudent) throws RoomDoesNotExistException, NonAuthorizedOperationException, ApplicationDoesNotExistException {
+		Room room = getRoom(code);
+		if(!room.getManagerLogin().equalsIgnoreCase(loginManager))
+			throw new NonAuthorizedOperationException();
+		User student = searchUser(loginStudent);
+		if(student == null || !hasApplicationToRoom(student, room))
+			throw new ApplicationDoesNotExistException();
+		room.acceptApplication(student);
+	}
+
+
+	private boolean hasApplicationToRoom(User student, Room room) {
+		if(room.studentHasRoomApplication(student))
+			return true;
+		return false;
+	}
+
+
+	@Override
+	public Iterator<RoomApplication> listApplications(String code, String loginManager) throws RoomDoesNotExistException, NonAuthorizedOperationException, NoApplicationsToRoomException {
+		Room room = getRoom(code);
+		if(!room.getManagerLogin().equalsIgnoreCase(loginManager))
+			throw new NonAuthorizedOperationException();
+		if(!room.hasRoomApplication())
+			throw new NoApplicationsToRoomException();
+		
+		return room.getApplicationsIt();
+		
+		
+	}
+}	

@@ -23,9 +23,7 @@ public class StudentClass extends AbstractUser implements Student{
      */
     private final String local;
 
-    private RoomApplication[] roomApplications;
-    
-    private int applicationCount;
+    private DoubleList<RoomApplication> roomApplications;
     /**
      * the StudentClass constructor
      *
@@ -39,8 +37,7 @@ public class StudentClass extends AbstractUser implements Student{
         super(login, name, universityName);
         this.age=age;
         this.local=local;
-        this.roomApplications = new RoomApplicationClass[10];
-        this.applicationCount = 0;
+        this.roomApplications = new DoubleList<>();
     }
 
     @Override
@@ -54,23 +51,41 @@ public class StudentClass extends AbstractUser implements Student{
     }
     
     public void addRoomApplication(RoomApplication application) {
-    	if(applicationCount < 10) {
-    		this.roomApplications[applicationCount] = application;
-    		applicationCount++;
+    	if(roomApplications.size() < 10) {
+    		this.roomApplications.addLast(application);;
     	}
     }
     
     public int getNumberApplications() {
-    	return applicationCount;
+    	return roomApplications.size();
     }
 
 	public boolean hasApplicationToRoom(RoomApplication application) {
-		for(int i = 0; i < applicationCount; i++) {
-			if(roomApplications[i].getStudentName().equals(application.getStudentName()) && roomApplications[i].getRoomCode().equals(application.getRoomCode()))
+		for(int i = 0; i < roomApplications.size(); i++) {
+			if(roomApplications.get(i).getStudent().getLogin().equals(application.getStudent().getLogin()) && roomApplications.get(i).getRoom().getRoomCode().equals(application.getRoom().getRoomCode()))
 				return true;
 		}
 			
 		return false;
 	}
 
+	@Override
+	public void removeApplication(RoomApplication roomApp) {
+		for(int i = 0; i < this.roomApplications.size(); i++) {
+			if(this.roomApplications.get(i) == roomApp) {
+				this.roomApplications.remove(i);
+				return;
+			}
+		}
+	}
+
+	@Override
+	public void removeAllApplicationsFromStudent() {
+		RoomApplication roomApp;
+		while(this.roomApplications.size() != 0) {
+			roomApp = this.roomApplications.getFirst();
+			roomApp.getRoom().removeApplicationFromStudent(roomApp.getStudent());
+			this.roomApplications.removeFirst();
+		}
+	}
 }

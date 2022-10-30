@@ -1,8 +1,10 @@
 package unibedrooms;
 
-import exceptions.ActiveCandidaturesException;
+import exceptions.ActiveApplicationException;
 
 import java.io.Serializable;
+
+import dataStructures.Iterator;
 
 /**
  * @author Alexandre Peres 61615
@@ -79,9 +81,9 @@ public interface Room extends Serializable {
      * Modifies the state of a room
      *
      * @param newState - the new state of the room
-     * @throws ActiveCandidaturesException - if the new state is "ocupado" and room still has active candidatures
+     * @throws ActiveApplicationException - if the new state is "ocupado" and room still has active candidatures
      */
-    void modifyState(String newState) throws ActiveCandidaturesException;
+    void modifyState(String newState) throws ActiveApplicationException;
 
     /**
      * Adds a room application
@@ -96,4 +98,12 @@ public interface Room extends Serializable {
      * @return - true if are applications, false if not
      */
     boolean hasRoomApplication();
+
+	boolean studentHasRoomApplication(User student);
+
+	void acceptApplication(User student);
+
+	Iterator<RoomApplication> getApplicationsIt();
+
+	void removeApplicationFromStudent(Student student);
 }

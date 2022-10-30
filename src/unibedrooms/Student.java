@@ -20,4 +20,8 @@ public interface Student extends User {
      * @return age
      */
     int getAge();
+
+	void removeApplication(RoomApplication roomApp);
+
+	void removeAllApplicationsFromStudent();
 }

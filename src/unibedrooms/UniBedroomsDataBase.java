@@ -4,6 +4,8 @@ import exceptions.*;
 
 import java.io.Serializable;
 
+import dataStructures.Iterator;
+
 /**
  * @author Alexandre Peres 61615
  * @author Tomás Ferreira 61733
@@ -83,9 +85,9 @@ public interface UniBedroomsDataBase extends Serializable {
      * @param loginManager - the login of the manager of the room
      * @throws RoomDoesNotExistException - if a room with the given code does not exist
      * @throws NonAuthorizedOperationException - if the manager login does not correspond to manager's of the room login's
-     * @throws ActiveCandidaturesException - if the new state is "ocupado" and room still has active candidatures
+     * @throws ActiveApplicationException - if the new state is "ocupado" and room still has active candidatures
      */
-    void updateRoomState(String code, String loginManager,String newState) throws RoomDoesNotExistException,NonAuthorizedOperationException,ActiveCandidaturesException;
+    void updateRoomState(String code, String loginManager,String newState) throws RoomDoesNotExistException,NonAuthorizedOperationException,ActiveApplicationException;
 
     /**
      * Removes a room from the system
@@ -94,9 +96,9 @@ public interface UniBedroomsDataBase extends Serializable {
      * @param loginManager - the login of the manager of the room
      * @throws RoomDoesNotExistException - if a room with the given code does not exist
      * @throws NonAuthorizedOperationException - if the manager login does not correspond to manager's of the room login's
-     * @throws ActiveCandidaturesException - if a room still has active candidatures
+     * @throws ActiveApplicationException - if a room still has active candidatures
      */
-    void removeRoom(String code, String loginManager) throws RoomDoesNotExistException,NonAuthorizedOperationException,ActiveCandidaturesException;
+    void removeRoom(String code, String loginManager) throws RoomDoesNotExistException,NonAuthorizedOperationException,ActiveApplicationException;
 
     /**
      * Inserts an application to a room
@@ -110,4 +112,8 @@ public interface UniBedroomsDataBase extends Serializable {
      * @throws AlreadyExistsCandidatureException - if an Application already exists
      */
 	void insertApplication(String login, String code) throws StudentDoesNotExistException, NonAuthorizedOperationException, RoomDoesNotExistException, RoomOccupiedException, AlreadyExistsCandidatureException;
+
+	void acceptApplication(String code, String loginManager, String loginStudent) throws RoomDoesNotExistException, NonAuthorizedOperationException, ApplicationDoesNotExistException;
+
+	Iterator<RoomApplication> listApplications(String code, String loginStudent) throws RoomDoesNotExistException, NonAuthorizedOperationException, NoApplicationsToRoomException;
 }

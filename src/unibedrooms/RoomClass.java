@@ -1,7 +1,8 @@
 package unibedrooms;
 
 import dataStructures.DoubleList;
-import exceptions.ActiveCandidaturesException;
+import dataStructures.Iterator;
+import exceptions.ActiveApplicationException;
 
 /**
  * @author Alexandre Peres 61615
@@ -59,6 +60,8 @@ public class RoomClass implements Room {
      * The manager of the room
      */
     private Manager manager;
+    
+    private Student studentResident;
 
     /**
      * List of candidatures to the room
@@ -84,6 +87,7 @@ public class RoomClass implements Room {
         this.state=stateFree;
         this.manager=manager;
         this.roomApplication=new DoubleList<>();
+        this.studentResident = null;
     }
 
     @Override
@@ -132,9 +136,9 @@ public class RoomClass implements Room {
     }*/
 
     @Override
-    public void modifyState(String newState) throws ActiveCandidaturesException {
+    public void modifyState(String newState) throws ActiveApplicationException {
         if(newState.equals(stateOccupied) && !roomApplication.isEmpty())
-            throw new ActiveCandidaturesException();
+            throw new ActiveApplicationException();
         else
             state=newState;
     }
@@ -148,4 +152,59 @@ public class RoomClass implements Room {
 	public void addRoomApplication(RoomApplication application) {
 		this.roomApplication.addLast(application);
 	}
+
+	@Override
+	public boolean studentHasRoomApplication(User student) {
+		Iterator<RoomApplication> roomAppIT = roomApplication.iterator();
+		RoomApplication roomApp;
+		while(roomAppIT.hasNext()) {
+			roomApp = roomAppIT.next();
+			if(roomApp.getStudent().getLogin().equals(student.getLogin()))
+				return true;
+		}
+		return false;
+	}
+
+	@Override
+	public void acceptApplication(User student) {
+		this.state = stateOccupied;
+		this.studentResident = (Student)student;
+
+		studentResident.removeAllApplicationsFromStudent();
+		removeApplicationFromStudents();
+		removeAllApplications();
+	}
+
+	private void removeApplicationFromStudents() {
+		Iterator<RoomApplication> roomAppIT = roomApplication.iterator();
+		RoomApplication roomApp;
+		Student student;
+		while(roomAppIT.hasNext()) {
+			roomApp = roomAppIT.next();
+			student = roomApp.getStudent();
+			student.removeApplication(roomApp);
+		}
+	}
+
+	private void removeAllApplications() {	
+		while(roomApplication.size() != 0)
+			roomApplication.removeLast();
+	}
+
+	@Override
+	public Iterator<RoomApplication> getApplicationsIt() {
+		return roomApplication.iterator();
+	}
+
+	@Override
+	public void removeApplicationFromStudent(Student student) {
+		for(int i = 0; i < this.roomApplication.size(); i++) {
+			if(this.roomApplication.get(i).getStudent() == student) {
+				this.roomApplication.remove(i);
+				return;
+			}
+		}
+	}
+	
+	
 }

@@ -1,8 +1,9 @@
 package unibedrooms;
 
-public interface RoomApplication {
-	public String getStudentName();
+import java.io.Serializable;
 
-	public String getRoomCode();
+public interface RoomApplication extends Serializable{
+	public Student getStudent();
 
+	public Room getRoom();
 }

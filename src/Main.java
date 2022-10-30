@@ -4,6 +4,8 @@ import unibedrooms.*;
 import java.io.*;
 import java.util.Scanner;
 
+import dataStructures.Iterator;
+
 /**
  * @author Alexandre Peres 61615
  * @author Tomás Ferreira 61733
@@ -25,7 +27,7 @@ public class Main {
     private enum Msg{
         STUDENT_ADDED("Registo de estudante executado."),STUDENT_DATA("%s %s %d\n%s\n%s\n"),
         MANAGER_ADDED("Registo de gerente executado."),MANAGER_DATA("%s %s\n%s\n"),
-        ROOM_ADDED("Registo de quarto executado."),ROOM_DATA("%s %s\n%s\n%d\n%s\n%s\n"),
+        ROOM_ADDED("Registo de quarto executado."),ROOM_DATA("%s %s\n%s\n%s\n%d\n%s\n%s\n"),
         ROOM_MODIFIED("Estado de quarto actualizado."),ROOM_REMOVED("Remocao de quarto executada."),
         CANDIDATURE_ADDED("Registo de candidatura executado."),CANDIDATURE_ACCEPTED("Aceitacao de candidatura executada."),
         CANDIDATURE_TO_ROOM_LIST_FORMAT("%s %s %s\n"),ROOM_LIST_FORMAT("\n%s %s\n%s\n%s\n\n"),
@@ -135,7 +137,7 @@ public class Main {
         String nome=in.nextLine().trim();
         int idade=in.nextInt();
         String localidade=in.nextLine().trim();
-        String universidade=in.nextLine();
+        String universidade=in.nextLine().trim();
 
         try{
             data.addStudent(login,nome,idade,localidade,universidade);
@@ -212,12 +214,12 @@ public class Main {
         String codigo = in.next();
         String login = in.next();
         in.nextLine();
-        String nomeResidencia= in.nextLine();
-        String universidade = in.nextLine();
-        String localidade = in.nextLine();
+        String nomeResidencia= in.nextLine().trim();
+        String universidade = in.nextLine().trim();
+        String localidade = in.nextLine().trim();
         int andar = in.nextInt();
         in.nextLine();
-        String descricao = in.nextLine();
+        String descricao = in.nextLine().trim();
 
         try{
             data.addRoom(codigo,login,nomeResidencia,universidade,localidade,andar,descricao);
@@ -268,7 +270,7 @@ public class Main {
             System.out.println(e.getMessage());
         } catch (NonAuthorizedOperationException e){
             System.out.println(e.getMessage());
-        } catch (ActiveCandidaturesException e){
+        } catch (ActiveApplicationException e){
             System.out.println(e.getMessage());
         }
     }
@@ -291,7 +293,7 @@ public class Main {
             System.out.println(e.getMessage());
         } catch(NonAuthorizedOperationException e){
             System.out.println(e.getMessage());
-        } catch(ActiveCandidaturesException e){
+        } catch(ActiveApplicationException e){
             System.out.println(e.getMessage());
         }
     }
@@ -304,11 +306,11 @@ public class Main {
      */
     private static void addCandidature(Scanner in, UniBedroomsDataBase data){
         String login = in.next();
-        String code = in.next();
+        String codigo = in.next();
         in.nextLine();
 
         try{
-            data.insertApplication(login,code);
+            data.insertApplication(login,codigo);
             System.out.println(Msg.CANDIDATURE_ADDED.getMsg());
         } catch(StudentDoesNotExistException e){
             System.out.println(e.getMessage());
@@ -330,6 +332,21 @@ public class Main {
      * @param data - UniBedrooms data
      */
     private static void acceptCandidature(Scanner in, UniBedroomsDataBase data){
+        String codigo = in.next();
+        String loginGerente = in.next();
+        String loginEstudante = in.next();
+        in.nextLine();
+
+        try{
+            data.acceptApplication(codigo, loginGerente, loginEstudante);
+            System.out.println(Msg.CANDIDATURE_ACCEPTED.getMsg());
+        } catch (RoomDoesNotExistException e){
+            System.out.println(e.getMessage());
+        } catch(NonAuthorizedOperationException e){
+            System.out.println(e.getMessage());
+        } catch (ApplicationDoesNotExistException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -339,6 +356,23 @@ public class Main {
      * @param data - UniBedrooms data
      */
     private static void listRoomCandidatures(Scanner in, UniBedroomsDataBase data){
+    	String codigo = in.next();
+        String loginGerente = in.next();
+        in.nextLine();
+        
+        try{
+            Iterator<RoomApplication> roomAppIt = data.listApplications(codigo, loginGerente);
+            while(roomAppIt.hasNext()) {
+            	RoomApplication roomApp = roomAppIt.next();
+            	System.out.printf(Msg.CANDIDATURE_TO_ROOM_LIST_FORMAT.getMsg(), roomApp.getStudent().getLogin(), roomApp.getStudent().getName(), roomApp.getStudent().getUniversityName());
+            }
+        } catch (RoomDoesNotExistException e){
+            System.out.println(e.getMessage());
+        } catch(NonAuthorizedOperationException e){
+            System.out.println(e.getMessage());
+        } catch (NoApplicationsToRoomException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
