@@ -21,7 +21,39 @@ public interface Student extends User {
      */
     int getAge();
 
-	void removeApplication(RoomApplication roomApp);
+    /**
+     * Gets the number of application
+     * 
+     * @return number of applications
+     */
+    public int getNumberApplications();
 
+    /**
+     * Checks if has application
+     * 
+     * @param application - the application
+     * @return true if application exists, false if not
+     */
+	public boolean hasApplicationToRoom(RoomApplication application);
+
+	/**
+	 * Adds a room application
+	 * 
+	 * @param application - the application
+	 */
+	public void addRoomApplication(RoomApplication application);
+
+	/**
+     * Removes an application from the student
+     * 
+     * @param roomApp
+     */
+	void removeApplication(RoomApplication roomApp);
+	
+	/**
+	 * Removes all applications from the student
+	 */
 	void removeAllApplicationsFromStudent();
+
+
 }

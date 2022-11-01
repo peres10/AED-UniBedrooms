@@ -99,11 +99,32 @@ public interface Room extends Serializable {
      */
     boolean hasRoomApplication();
 
+    /**
+     * Checks if student has an application to this room
+     * 
+     * @param student - a student
+     * @return - true if student has application, false if not 
+     */
 	boolean studentHasRoomApplication(User student);
 
+	/**
+	 * Accepts an application from a student
+	 * 
+	 * @param student - a student
+	 */
 	void acceptApplication(User student);
 
+	/**
+	 * Returns a list of application
+	 * 
+	 * @return - list of applications
+	 */
 	Iterator<RoomApplication> getApplicationsIt();
 
+	/**
+	 * Removes an application from a student
+	 * 
+	 * @param student - a student
+	 */
 	void removeApplicationFromStudent(Student student);
 }

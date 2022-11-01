@@ -24,6 +24,7 @@ public class StudentClass extends AbstractUser implements Student{
     private final String local;
 
     private DoubleList<RoomApplication> roomApplications;
+    
     /**
      * the StudentClass constructor
      *
@@ -49,17 +50,13 @@ public class StudentClass extends AbstractUser implements Student{
     public int getAge() {
         return age;
     }
-    
-    public void addRoomApplication(RoomApplication application) {
-    	if(roomApplications.size() < 10) {
-    		this.roomApplications.addLast(application);;
-    	}
-    }
-    
-    public int getNumberApplications() {
-    	return roomApplications.size();
-    }
 
+    @Override
+    public int getNumberApplications() {
+		return roomApplications.size();
+	}
+
+    @Override
 	public boolean hasApplicationToRoom(RoomApplication application) {
 		for(int i = 0; i < roomApplications.size(); i++) {
 			if(roomApplications.get(i).getStudent().getLogin().equals(application.getStudent().getLogin()) && roomApplications.get(i).getRoom().getRoomCode().equals(application.getRoom().getRoomCode()))
@@ -67,6 +64,13 @@ public class StudentClass extends AbstractUser implements Student{
 		}
 			
 		return false;
+	}
+    
+    @Override
+	public void addRoomApplication(RoomApplication application) {
+		if(roomApplications.size() < 10) {
+			this.roomApplications.addLast(application);;
+		}
 	}
 
 	@Override

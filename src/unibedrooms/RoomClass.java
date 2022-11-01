@@ -130,12 +130,12 @@ public class RoomClass implements Room {
         return manager.getLogin();
     }
 
-    /*@Override
-    public int getNumberOfCandidatures() {
-        return candidatures.size();
-    }*/
-
     @Override
+	public Iterator<RoomApplication> getApplicationsIt() {
+		return roomApplication.iterator();
+	}
+
+	@Override
     public void modifyState(String newState) throws ActiveApplicationException {
         if(newState.equals(stateOccupied) && !roomApplication.isEmpty())
             throw new ActiveApplicationException();
@@ -147,11 +147,6 @@ public class RoomClass implements Room {
     public boolean hasRoomApplication() {
         return !roomApplication.isEmpty();
     }
-
-	@Override
-	public void addRoomApplication(RoomApplication application) {
-		this.roomApplication.addLast(application);
-	}
 
 	@Override
 	public boolean studentHasRoomApplication(User student) {
@@ -166,6 +161,11 @@ public class RoomClass implements Room {
 	}
 
 	@Override
+	public void addRoomApplication(RoomApplication application) {
+		this.roomApplication.addLast(application);
+	}
+
+	@Override
 	public void acceptApplication(User student) {
 		this.state = stateOccupied;
 		this.studentResident = (Student)student;
@@ -173,27 +173,6 @@ public class RoomClass implements Room {
 		studentResident.removeAllApplicationsFromStudent();
 		removeApplicationFromStudents();
 		removeAllApplications();
-	}
-
-	private void removeApplicationFromStudents() {
-		Iterator<RoomApplication> roomAppIT = roomApplication.iterator();
-		RoomApplication roomApp;
-		Student student;
-		while(roomAppIT.hasNext()) {
-			roomApp = roomAppIT.next();
-			student = roomApp.getStudent();
-			student.removeApplication(roomApp);
-		}
-	}
-
-	private void removeAllApplications() {	
-		while(roomApplication.size() != 0)
-			roomApplication.removeLast();
-	}
-
-	@Override
-	public Iterator<RoomApplication> getApplicationsIt() {
-		return roomApplication.iterator();
 	}
 
 	@Override
@@ -204,6 +183,28 @@ public class RoomClass implements Room {
 				return;
 			}
 		}
+	}
+
+	/**
+	 * Removes the application from the students
+	 */
+	private void removeApplicationFromStudents() {
+		Iterator<RoomApplication> roomAppIT = roomApplication.iterator();
+		RoomApplication roomApp;
+		Student student;
+		while(roomAppIT.hasNext()) {
+			roomApp = roomAppIT.next();
+			student = roomApp.getStudent();
+			student.removeApplication(roomApp);
+		}
+	}
+	
+	/**
+	 * Removes all applications
+	 */
+	private void removeAllApplications() {	
+		while(roomApplication.size() != 0)
+			roomApplication.removeLast();
 	}
 	
 	

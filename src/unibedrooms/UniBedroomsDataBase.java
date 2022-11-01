@@ -107,13 +107,34 @@ public interface UniBedroomsDataBase extends Serializable {
      * @param code - a code of a room
      * @throws StudentDoesNotExistException - if a student with a given login does not exist in the system
      * @throws NonAuthorizedOperationException - if the manager login does not correspond to manager's of the room login's
-     * @throws RoomDoesNotExistException - if a room with the given code does not exist
-     * @throws RoomOccupiedException - if a room is occupied
+     * @throws RoomDoesNotExistException - if the room with the given code does not exist
+     * @throws RoomOccupiedException - if the room is occupied
      * @throws AlreadyExistsCandidatureException - if an Application already exists
      */
 	void insertApplication(String login, String code) throws StudentDoesNotExistException, NonAuthorizedOperationException, RoomDoesNotExistException, RoomOccupiedException, AlreadyExistsCandidatureException;
 
+	
+	/**
+	 * Accepts an application to a room
+	 * 
+	 * @param code - a code of a room
+	 * @param loginManager - the login of the manager of the room
+	 * @param loginStudent - the login of the student
+	 * @throws RoomDoesNotExistException - if the room with the given code does not exist
+	 * @throws NonAuthorizedOperationException - if the room is occupied
+	 * @throws ApplicationDoesNotExistException - if the application from the student does not exist
+	 */
 	void acceptApplication(String code, String loginManager, String loginStudent) throws RoomDoesNotExistException, NonAuthorizedOperationException, ApplicationDoesNotExistException;
 
-	Iterator<RoomApplication> listApplications(String code, String loginStudent) throws RoomDoesNotExistException, NonAuthorizedOperationException, NoApplicationsToRoomException;
+	/**
+	 * Lists all applications to a room
+	 * 
+	 * @param code - a code of a room
+	 * @param loginStudent - the login of the student
+	 * @return - Iterator of the list of applications in a room
+	 * @throws RoomDoesNotExistException - if the room with the given code does not exist
+	 * @throws NonAuthorizedOperationException - if the room is occupied
+	 * @throws NoApplicationsToRoomException - if the room has no applications
+	 */
+	Iterator<RoomApplication> listApplications(String code, String loginManager) throws RoomDoesNotExistException, NonAuthorizedOperationException, NoApplicationsToRoomException;
 }
