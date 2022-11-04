@@ -22,7 +22,7 @@ public interface UniBedroomsDataBase extends Serializable {
      * @param university - the name of the student's university
      * @throws UserAlreadyExistsException - if there is someone with the same login already registered
      */
-    void addStudent(String login,String name,int age,String local,String university) throws UserAlreadyExistsException;
+     void addStudent(String login,String name,int age,String local,String university) throws UserAlreadyExistsException;
 
     /**
      * Gets a student registered in the system
@@ -111,30 +111,30 @@ public interface UniBedroomsDataBase extends Serializable {
      * @throws RoomOccupiedException - if the room is occupied
      * @throws AlreadyExistsCandidatureException - if an Application already exists
      */
-	void insertApplication(String login, String code) throws StudentDoesNotExistException, NonAuthorizedOperationException, RoomDoesNotExistException, RoomOccupiedException, AlreadyExistsCandidatureException;
+    void insertApplication(String login, String code) throws StudentDoesNotExistException, NonAuthorizedOperationException, RoomDoesNotExistException, RoomOccupiedException, AlreadyExistsCandidatureException;
 
 	
-	/**
-	 * Accepts an application to a room
-	 * 
-	 * @param code - a code of a room
-	 * @param loginManager - the login of the manager of the room
-	 * @param loginStudent - the login of the student
-	 * @throws RoomDoesNotExistException - if the room with the given code does not exist
-	 * @throws NonAuthorizedOperationException - if the room is occupied
-	 * @throws ApplicationDoesNotExistException - if the application from the student does not exist
-	 */
-	void acceptApplication(String code, String loginManager, String loginStudent) throws RoomDoesNotExistException, NonAuthorizedOperationException, ApplicationDoesNotExistException;
+    /**
+     * Accepts an application to a room
+     * 
+     * @param code - a code of a room
+     * @param loginManager - the login of the manager of the room
+     * @param loginStudent - the login of the student
+     * @throws RoomDoesNotExistException - if the room with the given code does not exist
+     * @throws NonAuthorizedOperationException - if the room is occupied
+     * @throws ApplicationDoesNotExistException - if the application from the student does not exist
+     */
+    void acceptApplication(String code, String loginManager, String loginStudent) throws RoomDoesNotExistException, NonAuthorizedOperationException, ApplicationDoesNotExistException;
 
-	/**
-	 * Lists all applications to a room
-	 * 
-	 * @param code - a code of a room
-	 * @param loginStudent - the login of the student
-	 * @return - Iterator of the list of applications in a room
-	 * @throws RoomDoesNotExistException - if the room with the given code does not exist
-	 * @throws NonAuthorizedOperationException - if the room is occupied
-	 * @throws NoApplicationsToRoomException - if the room has no applications
-	 */
-	Iterator<RoomApplication> listApplications(String code, String loginManager) throws RoomDoesNotExistException, NonAuthorizedOperationException, NoApplicationsToRoomException;
+    /**
+    * Lists all applications to a room
+    * 
+    * @param code - a code of a room
+    * @param loginStudent - the login of the student
+    * @return - Iterator of the list of applications in a room
+    * @throws RoomDoesNotExistException - if the room with the given code does not exist
+    * @throws NonAuthorizedOperationException - if the room is occupied
+    * @throws NoApplicationsToRoomException - if the room has no applications
+    */
+    Iterator<RoomApplication> listApplications(String code, String loginManager) throws RoomDoesNotExistException, NonAuthorizedOperationException, NoApplicationsToRoomException;
 }
