@@ -109,9 +109,9 @@ public interface UniBedroomsDataBase extends Serializable {
      * @throws NonAuthorizedOperationException - if the manager login does not correspond to manager's of the room login's
      * @throws RoomDoesNotExistException - if the room with the given code does not exist
      * @throws RoomOccupiedException - if the room is occupied
-     * @throws AlreadyExistsCandidatureException - if an Application already exists
+     * @throws AlreadyExistsApplicationException - if an Application already exists
      */
-    void insertApplication(String login, String code) throws StudentDoesNotExistException, NonAuthorizedOperationException, RoomDoesNotExistException, RoomOccupiedException, AlreadyExistsCandidatureException;
+    void insertApplication(String login, String code) throws StudentDoesNotExistException, NonAuthorizedOperationException, RoomDoesNotExistException, RoomOccupiedException, AlreadyExistsApplicationException;
 
 	
     /**

@@ -68,15 +68,6 @@ public interface Room extends Serializable {
      */
     String getManagerLogin();
 
-    //
-    /**
-     * Returns the number of candidatures to the room
-     *
-     * @return - number of candidatures
-     */
-    //int getNumberOfCandidatures();
-    //
-
     /**
      * Modifies the state of a room
      *
@@ -85,13 +76,6 @@ public interface Room extends Serializable {
      */
     void modifyState(String newState) throws ActiveApplicationException;
 
-    /**
-     * Adds a room application
-     * 
-     * @param application - application to a room
-     */
-    void addRoomApplication(RoomApplication application);
-    
     /**
      * Gets if there are applications to a room
      *
@@ -108,6 +92,13 @@ public interface Room extends Serializable {
 	boolean studentHasRoomApplication(User student);
 
 	/**
+	 * Adds a room application
+	 * 
+	 * @param application - application to a room
+	 */
+	void addRoomApplication(RoomApplication application);
+
+	/**
 	 * Accepts an application from a student
 	 * 
 	 * @param student - a student
@@ -115,16 +106,16 @@ public interface Room extends Serializable {
 	void acceptApplication(User student);
 
 	/**
-	 * Returns a list of application
-	 * 
-	 * @return - list of applications
-	 */
-	Iterator<RoomApplication> getApplicationsIt();
-
-	/**
 	 * Removes an application from a student
 	 * 
 	 * @param student - a student
 	 */
 	void removeApplicationFromStudent(Student student);
+
+	/**
+	 * Returns a list of application
+	 * 
+	 * @return - list of applications
+	 */
+	Iterator<RoomApplication> getApplicationsIt();
 }

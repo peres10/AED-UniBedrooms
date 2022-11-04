@@ -131,11 +131,6 @@ public class RoomClass implements Room {
     }
 
     @Override
-	public Iterator<RoomApplication> getApplicationsIt() {
-		return roomApplication.iterator();
-	}
-
-	@Override
     public void modifyState(String newState) throws ActiveApplicationException {
         if(newState.equals(stateOccupied) && !roomApplication.isEmpty())
             throw new ActiveApplicationException();
@@ -183,6 +178,11 @@ public class RoomClass implements Room {
 				return;
 			}
 		}
+	}
+
+	@Override
+	public Iterator<RoomApplication> getApplicationsIt() {
+		return roomApplication.iterator();
 	}
 
 	/**

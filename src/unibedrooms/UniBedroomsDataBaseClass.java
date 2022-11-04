@@ -70,7 +70,7 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
 
 
 	@Override
-	public void insertApplication(String login, String code) throws StudentDoesNotExistException, NonAuthorizedOperationException, RoomDoesNotExistException, RoomOccupiedException, AlreadyExistsCandidatureException {
+	public void insertApplication(String login, String code) throws StudentDoesNotExistException, NonAuthorizedOperationException, RoomDoesNotExistException, RoomOccupiedException, AlreadyExistsApplicationException {
 	    Student student = getStudent(login);
 		if(((StudentClass)student).getNumberApplications() == 10)
 	        throw new NonAuthorizedOperationException();
@@ -79,10 +79,10 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
 		if(room.getEstado().equals(stateOccupied))
 			throw new RoomOccupiedException();
 		
-		RoomApplication application = new RoomApplicationClass(room, (StudentClass)student);
-		if(((StudentClass)student).hasApplicationToRoom(application))
-	        throw new AlreadyExistsCandidatureException();
+		if(((StudentClass)student).hasApplicationToRoom(room))
+	        throw new AlreadyExistsApplicationException();
 		
+		RoomApplication application = new RoomApplicationClass(room, (StudentClass)student);
 		room.addRoomApplication(application);
 		((StudentClass)student).addRoomApplication(application);
 	}

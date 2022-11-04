@@ -34,7 +34,7 @@ public interface Student extends User {
      * @param application - the application
      * @return true if application exists, false if not
      */
-	public boolean hasApplicationToRoom(RoomApplication application);
+	public boolean hasApplicationToRoom(Room room);
 
 	/**
 	 * Adds a room application

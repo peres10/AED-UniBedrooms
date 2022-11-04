@@ -57,9 +57,9 @@ public class StudentClass extends AbstractUser implements Student{
 	}
 
     @Override
-	public boolean hasApplicationToRoom(RoomApplication application) {
+	public boolean hasApplicationToRoom(Room room) {
 		for(int i = 0; i < roomApplications.size(); i++) {
-			if(roomApplications.get(i).getStudent().getLogin().equals(application.getStudent().getLogin()) && roomApplications.get(i).getRoom().getRoomCode().equals(application.getRoom().getRoomCode()))
+			if(roomApplications.get(i).getRoom() == room)
 				return true;
 		}
 			
@@ -88,7 +88,7 @@ public class StudentClass extends AbstractUser implements Student{
 		RoomApplication roomApp;
 		while(this.roomApplications.size() != 0) {
 			roomApp = this.roomApplications.getFirst();
-			roomApp.getRoom().removeApplicationFromStudent(roomApp.getStudent());
+			roomApp.getRoom().removeApplicationFromStudent(this);
 			this.roomApplications.removeFirst();
 		}
 	}

@@ -1,6 +1,6 @@
 package exceptions;
 
-public class AlreadyExistsCandidatureException extends Exception {
+public class AlreadyExistsApplicationException extends Exception {
 	 /**
      * Serial Version UID of the Class
      */
@@ -8,7 +8,7 @@ public class AlreadyExistsCandidatureException extends Exception {
 
     private static final String errMsg = "Candidatura existente.";
 
-    public AlreadyExistsCandidatureException() {
+    public AlreadyExistsApplicationException() {
         super(errMsg);
     }
 }

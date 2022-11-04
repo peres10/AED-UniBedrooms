@@ -29,8 +29,8 @@ public class Main {
         MANAGER_ADDED("Registo de gerente executado."),MANAGER_DATA("%s %s\n%s\n"),
         ROOM_ADDED("Registo de quarto executado."),ROOM_DATA("%s %s\n%s\n%s\n%d\n%s\n%s\n"),
         ROOM_MODIFIED("Estado de quarto actualizado."),ROOM_REMOVED("Remocao de quarto executada."),
-        CANDIDATURE_ADDED("Registo de candidatura executado."),CANDIDATURE_ACCEPTED("Aceitacao de candidatura executada."),
-        CANDIDATURE_TO_ROOM_LIST_FORMAT("%s %s %s\n"),ROOM_LIST_FORMAT("\n%s %s\n%s\n%s\n\n"),
+        APPLICATION_ADDED("Registo de candidatura executado."),APPLICATION_ACCEPTED("Aceitacao de candidatura executada."),
+        APPLICATION_TO_ROOM_LIST_FORMAT("%s %s %s\n"),ROOM_LIST_FORMAT("\n%s %s\n%s\n%s\n\n"),
         EXIT_MSG("Obrigado. Ate a proxima.");
 
         private final String msg ;
@@ -87,13 +87,13 @@ public class Main {
                     removeRoom(in,data);
                     break;
                 case IC:
-                    addCandidature(in,data);
+                    addApplication(in,data);
                     break;
                 case AC :
-                    acceptCandidature(in,data);
+                    acceptApplication(in,data);
                     break;
                 case LC:
-                    listRoomCandidatures(in,data);
+                    listRoomApplication(in,data);
                     break;
                 case LQ:
                     break;
@@ -299,19 +299,19 @@ public class Main {
     }
 
     /**
-     * Adds a candidature to a room
+     * Adds an application to a room
      *
      * @param in - Input Scanner
      * @param data - UniBedrooms data
      */
-    private static void addCandidature(Scanner in, UniBedroomsDataBase data){
+    private static void addApplication(Scanner in, UniBedroomsDataBase data){
         String login = in.next();
         String codigo = in.next();
         in.nextLine();
 
         try{
             data.insertApplication(login,codigo);
-            System.out.println(Msg.CANDIDATURE_ADDED.getMsg());
+            System.out.println(Msg.APPLICATION_ADDED.getMsg());
         } catch(StudentDoesNotExistException e){
             System.out.println(e.getMessage());
         } catch(NonAuthorizedOperationException e){
@@ -320,18 +320,18 @@ public class Main {
             System.out.println(e.getMessage());
         } catch (RoomOccupiedException e){
             System.out.println(e.getMessage());
-        } catch (AlreadyExistsCandidatureException e){
+        } catch (AlreadyExistsApplicationException e){
             System.out.println(e.getMessage());
         }
     }
 
     /**
-     * Accepts a candidature to a room
+     * Accepts an application to a room
      *
      * @param in - Input Scanner
      * @param data - UniBedrooms data
      */
-    private static void acceptCandidature(Scanner in, UniBedroomsDataBase data){
+    private static void acceptApplication(Scanner in, UniBedroomsDataBase data){
         String codigo = in.next();
         String loginGerente = in.next();
         String loginEstudante = in.next();
@@ -339,7 +339,7 @@ public class Main {
 
         try{
             data.acceptApplication(codigo, loginGerente, loginEstudante);
-            System.out.println(Msg.CANDIDATURE_ACCEPTED.getMsg());
+            System.out.println(Msg.APPLICATION_ACCEPTED.getMsg());
         } catch (RoomDoesNotExistException e){
             System.out.println(e.getMessage());
         } catch(NonAuthorizedOperationException e){
@@ -350,12 +350,12 @@ public class Main {
     }
 
     /**
-     * Lists the candidatures to a room
+     * Lists the applications to a room
      *
      * @param in - Input Scanner
      * @param data - UniBedrooms data
      */
-    private static void listRoomCandidatures(Scanner in, UniBedroomsDataBase data){
+    private static void listRoomApplication(Scanner in, UniBedroomsDataBase data){
     	String codigo = in.next();
         String loginGerente = in.next();
         in.nextLine();
@@ -364,7 +364,7 @@ public class Main {
             Iterator<RoomApplication> roomAppIt = data.listApplications(codigo, loginGerente);
             while(roomAppIt.hasNext()) {
             	RoomApplication roomApp = roomAppIt.next();
-            	System.out.printf(Msg.CANDIDATURE_TO_ROOM_LIST_FORMAT.getMsg(), roomApp.getStudent().getLogin(), roomApp.getStudent().getName(), roomApp.getStudent().getUniversityName());
+            	System.out.printf(Msg.APPLICATION_TO_ROOM_LIST_FORMAT.getMsg(), roomApp.getStudent().getLogin(), roomApp.getStudent().getName(), roomApp.getStudent().getUniversityName());
             }
         } catch (RoomDoesNotExistException e){
             System.out.println(e.getMessage());
