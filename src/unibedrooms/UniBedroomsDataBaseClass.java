@@ -136,30 +136,30 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
             rooms.remove(room);
     }
 
-	@Override
-	public void acceptApplication(String code, String loginManager, String loginStudent) throws RoomDoesNotExistException, NonAuthorizedOperationException, ApplicationDoesNotExistException {
-		Room room = getRoom(code);
-		if(!room.getManagerLogin().equalsIgnoreCase(loginManager))
-			throw new NonAuthorizedOperationException();
-		User student = searchUser(loginStudent);
-		if(student == null || !hasApplicationToRoom(student, room))
-			throw new ApplicationDoesNotExistException();
-		room.acceptApplication(student);
-	}
+    @Override
+    public void acceptApplication(String code, String loginManager, String loginStudent) throws RoomDoesNotExistException, NonAuthorizedOperationException, ApplicationDoesNotExistException {
+        Room room = getRoom(code);
+        if(!room.getManagerLogin().equalsIgnoreCase(loginManager))
+            throw new NonAuthorizedOperationException();
+        User student = searchUser(loginStudent);
+        if(student == null || !hasApplicationToRoom(student, room))
+            throw new ApplicationDoesNotExistException();
+        room.acceptApplication(student);
+    }
 
 
-	@Override
-	public Iterator<RoomApplication> listApplications(String code, String loginManager) throws RoomDoesNotExistException, NonAuthorizedOperationException, NoApplicationsToRoomException {
-		Room room = getRoom(code);
-		if(!room.getManagerLogin().equalsIgnoreCase(loginManager))
-			throw new NonAuthorizedOperationException();
-		if(!room.hasRoomApplication())
-			throw new NoApplicationsToRoomException();
-		
-		return room.getApplicationsIt();
-		
-		
-	}
+    @Override
+    public Iterator<RoomApplication> listApplications(String code, String loginManager) throws RoomDoesNotExistException, NonAuthorizedOperationException, NoApplicationsToRoomException {
+        Room room = getRoom(code);
+        if(!room.getManagerLogin().equalsIgnoreCase(loginManager))
+            throw new NonAuthorizedOperationException();
+        if(!room.hasRoomApplication())
+            throw new NoApplicationsToRoomException();
+
+        return room.getApplicationsIt();
+
+
+    }
 
 
 	/**

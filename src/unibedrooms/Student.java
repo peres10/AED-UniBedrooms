@@ -26,7 +26,7 @@ public interface Student extends User {
      * 
      * @return number of applications
      */
-    public int getNumberApplications();
+    int getNumberApplications();
 
     /**
      * Checks if has application
@@ -34,14 +34,14 @@ public interface Student extends User {
      * @param application - the application
      * @return true if application exists, false if not
      */
-	public boolean hasApplicationToRoom(Room room);
+	boolean hasApplicationToRoom(Room room);
 
 	/**
 	 * Adds a room application
 	 * 
 	 * @param application - the application
 	 */
-	public void addRoomApplication(RoomApplication application);
+	void addRoomApplication(RoomApplication application);
 
 	/**
      * Removes an application from the student

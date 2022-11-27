@@ -9,12 +9,12 @@ public interface RoomApplication extends Serializable{
 	 * 
 	 * @return - the student
 	 */
-	public Student getStudent();
+	Student getStudent();
 
 	/**
 	 * Returns the room of the application
 	 * 
 	 * @return - the room
 	 */
-	public Room getRoom();
+	Room getRoom();
 }
