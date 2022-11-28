@@ -96,7 +96,7 @@ public interface Room extends Serializable {
 	 * 
 	 * @param application - application to a room
 	 */
-	void addRoomApplication(RoomApplication application);
+	void addRoomApplication(Student studentApplying);
 
 	/**
 	 * Accepts an application from a student
@@ -117,5 +117,5 @@ public interface Room extends Serializable {
 	 * 
 	 * @return - list of applications
 	 */
-	Iterator<RoomApplication> getApplicationsIt();
+	Iterator<Student> getApplicationsIt();
 }

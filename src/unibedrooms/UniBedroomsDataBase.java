@@ -136,5 +136,14 @@ public interface UniBedroomsDataBase extends Serializable {
     * @throws NonAuthorizedOperationException - if the room is occupied
     * @throws NoApplicationsToRoomException - if the room has no applications
     */
-    Iterator<RoomApplication> listApplications(String code, String loginManager) throws RoomDoesNotExistException, NonAuthorizedOperationException, NoApplicationsToRoomException;
+    Iterator<Student> listApplications(String code, String loginManager) throws RoomDoesNotExistException, NonAuthorizedOperationException, NoApplicationsToRoomException;
+
+    /**
+     * Lists all rooms in the system
+     * @return Iterator of the list of rooms in the system
+     * @throws NoRoomsException - if there are no rooms in the system
+     */
+	Iterator<Room> listAllRooms() throws NoRoomsException;
+
+	Iterator<Room> listAvailableRooms(String localidade) throws NoRoomsInLocalidadeException;
 }

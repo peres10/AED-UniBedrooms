@@ -325,11 +325,6 @@ public class BinarySearchTree<K extends Comparable<K>, V>
         return new BSTKeyOrderIterator<K,V>(root);
     }
 
-    public Iterator<Entry<K,V>> breadthFirstIterator()
-    {
-        return new BSTBreadthFirstIterator<K,V>(root);
-    }
-
     //Best Case: O(1) ou O(log n)
     //Average Case: O(n)
     //Worst Case: O(n)
@@ -351,27 +346,6 @@ public class BinarySearchTree<K extends Comparable<K>, V>
 
         return true;
     }
-
-    /*
-    public Entry<K,V> nthEntry( int n ) throws NoSuchEntryException{
-        if(n>this.size()) throw new NoSuchEntryException();
-
-        return nthEntry(this.root,n)
-    }
-
-    O(1) O(n) O(log n)
-    private Entry<K,V> nthEntry( BSTNode<K,V> node, int n){
-       int nodeSubTreeSize=node.leftSubTreeSize();
-       if(nodeSubTreeSize+1==n)
-            return node.getEntry();
-        if(nodeSubTreeSize+1>n)
-            return nthEntry(node.getRight(),n-(nodeSubTreeSize+1)
-        else
-            return nthEntry(node.getLeft(),n);
-       }
-
-    }
-    */
 }
 
 

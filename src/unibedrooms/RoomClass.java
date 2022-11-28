@@ -66,7 +66,7 @@ public class RoomClass implements Room {
     /**
      * List of candidatures to the room
      */
-    DoubleList<RoomApplication> roomApplication;
+    DoubleList<Student> studentsApplying;
 
     /**
      *
@@ -86,7 +86,7 @@ public class RoomClass implements Room {
         this.description=description;
         this.state=stateFree;
         this.manager=manager;
-        this.roomApplication=new DoubleList<>();
+        this.studentsApplying=new DoubleList<>();
         this.studentResident = null;
     }
 
@@ -132,7 +132,7 @@ public class RoomClass implements Room {
 
     @Override
     public void modifyState(String newState) throws ActiveApplicationException {
-        if(newState.equals(stateOccupied) && !roomApplication.isEmpty())
+        if(newState.equals(stateOccupied) && !studentsApplying.isEmpty())
             throw new ActiveApplicationException();
         else
             state=newState;
@@ -140,24 +140,24 @@ public class RoomClass implements Room {
     
     @Override
     public boolean hasRoomApplication() {
-        return !roomApplication.isEmpty();
+        return !studentsApplying.isEmpty();
     }
 
 	@Override
 	public boolean studentHasRoomApplication(User student) {
-		Iterator<RoomApplication> roomAppIT = roomApplication.iterator();
-		RoomApplication roomApp;
-		while(roomAppIT.hasNext()) {
-			roomApp = roomAppIT.next();
-			if(roomApp.getStudent().getLogin().equals(student.getLogin()))
+		Iterator<Student> studentAppIT = studentsApplying.iterator();
+		Student studentApp;
+		while(studentAppIT.hasNext()) {
+			studentApp = studentAppIT.next();
+			if(studentApp.getLogin().equals(student.getLogin()))
 				return true;
 		}
 		return false;
 	}
 
 	@Override
-	public void addRoomApplication(RoomApplication application) {
-		this.roomApplication.addLast(application);
+	public void addRoomApplication(Student studentApplying) {
+		this.studentsApplying.addLast(studentApplying);
 	}
 
 	@Override
@@ -172,30 +172,28 @@ public class RoomClass implements Room {
 
 	@Override
 	public void removeApplicationFromStudent(Student student) {
-		for(int i = 0; i < this.roomApplication.size(); i++) {
-			if(this.roomApplication.get(i).getStudent() == student) {
-				this.roomApplication.remove(i);
+		for(int i = 0; i < this.studentsApplying.size(); i++) {
+			if(this.studentsApplying.get(i) == student) {
+				this.studentsApplying.remove(i);
 				return;
 			}
 		}
 	}
 
 	@Override
-	public Iterator<RoomApplication> getApplicationsIt() {
-		return roomApplication.iterator();
+	public Iterator<Student> getApplicationsIt() {
+		return studentsApplying.iterator();
 	}
 
 	/**
 	 * Removes the application from the students
 	 */
 	private void removeApplicationFromStudents() {
-		Iterator<RoomApplication> roomAppIT = roomApplication.iterator();
-		RoomApplication roomApp;
-		Student student;
-		while(roomAppIT.hasNext()) {
-			roomApp = roomAppIT.next();
-			student = roomApp.getStudent();
-			student.removeApplication(roomApp);
+		Iterator<Student> studentAppIT = studentsApplying.iterator();
+		Student studentApp;
+		while(studentAppIT.hasNext()) {
+			studentApp = studentAppIT.next();
+			studentApp.removeApplication(this);
 		}
 	}
 	
@@ -203,8 +201,8 @@ public class RoomClass implements Room {
 	 * Removes all applications
 	 */
 	private void removeAllApplications() {	
-		while(roomApplication.size() != 0)
-			roomApplication.removeLast();
+		while(studentsApplying.size() != 0)
+			studentsApplying.removeLast();
 	}
 	
 	

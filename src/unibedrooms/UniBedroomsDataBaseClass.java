@@ -82,9 +82,8 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
 		if(((StudentClass)student).hasApplicationToRoom(room))
 	        throw new AlreadyExistsApplicationException();
 		
-		RoomApplication application = new RoomApplicationClass(room, (StudentClass)student);
-		room.addRoomApplication(application);
-		((StudentClass)student).addRoomApplication(application);
+		room.addRoomApplication(student);
+		((StudentClass)student).addRoomApplication(room);
 	}
 
 
@@ -149,7 +148,7 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
 
 
     @Override
-    public Iterator<RoomApplication> listApplications(String code, String loginManager) throws RoomDoesNotExistException, NonAuthorizedOperationException, NoApplicationsToRoomException {
+    public Iterator<Student> listApplications(String code, String loginManager) throws RoomDoesNotExistException, NonAuthorizedOperationException, NoApplicationsToRoomException {
         Room room = getRoom(code);
         if(!room.getManagerLogin().equalsIgnoreCase(loginManager))
             throw new NonAuthorizedOperationException();
@@ -160,6 +159,20 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
 
 
     }
+
+
+	@Override
+	public Iterator<Room> listAllRooms() throws NoRoomsException{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public Iterator<Room> listAvailableRooms(String localidade) throws NoRoomsInLocalidadeException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 
 	/**

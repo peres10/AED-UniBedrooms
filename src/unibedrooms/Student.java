@@ -41,14 +41,14 @@ public interface Student extends User {
 	 * 
 	 * @param application - the application
 	 */
-	void addRoomApplication(RoomApplication application);
+	void addRoomApplication(Room roomToApply);
 
 	/**
      * Removes an application from the student
      * 
      * @param roomApp
      */
-	void removeApplication(RoomApplication roomApp);
+	void removeApplication(Room roomApp);
 	
 	/**
 	 * Removes all applications from the student

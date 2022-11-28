@@ -96,8 +96,10 @@ public class Main {
                     listRoomApplication(in,data);
                     break;
                 case LQ:
+                	listAllRooms(in,data);
                     break;
                 case LL:
+                	listAvailableRooms(in, data);
                     break;
                 case XS:
                     System.out.println(Msg.EXIT_MSG.getMsg());
@@ -361,10 +363,10 @@ public class Main {
         in.nextLine();
         
         try{
-            Iterator<RoomApplication> roomAppIt = data.listApplications(codigo, loginGerente);
+            Iterator<Student> roomAppIt = data.listApplications(codigo, loginGerente);
             while(roomAppIt.hasNext()) {
-            	RoomApplication roomApp = roomAppIt.next();
-            	System.out.printf(Msg.APPLICATION_TO_ROOM_LIST_FORMAT.getMsg(), roomApp.getStudent().getLogin(), roomApp.getStudent().getName(), roomApp.getStudent().getUniversityName());
+            	Student studentApplying = roomAppIt.next();
+            	System.out.printf(Msg.APPLICATION_TO_ROOM_LIST_FORMAT.getMsg(), studentApplying.getLogin(), studentApplying.getName(), studentApplying.getUniversityName());
             }
         } catch (RoomDoesNotExistException e){
             System.out.println(e.getMessage());
@@ -376,6 +378,48 @@ public class Main {
     }
 
     /**
+     * Lists all rooms available in the system
+     * 
+     * @param in - Input Scanner
+     * @param data - UniBedrooms data
+     */
+    private static void listAllRooms(Scanner in, UniBedroomsDataBase data) {
+    	try {
+    		Iterator<Room> allRoomsIt = data.listAllRooms();
+    		Room room;
+    		while(allRoomsIt.hasNext()) {
+    			room = allRoomsIt.next();
+    			System.out.printf(Msg.ROOM_LIST_FORMAT.getMsg(), room.getLocal(), room.getRoomCode(), room.getUniversityName(), room.getResidence());
+    		}
+    	} catch(NoRoomsException e) {
+    		System.out.println(e.getMessage());
+    	}
+	}
+
+    /**
+     * lists all available rooms in a local
+     * 
+     * @param in - Input Scanner
+     * @param data - UniBedrooms data
+     */
+	private static void listAvailableRooms(Scanner in, UniBedroomsDataBase data) {
+		String localidade = in.next().trim();
+		in.nextLine();
+		
+		try {
+			Iterator<Room> avRoomsIt = data.listAvailableRooms(localidade);
+			Room room;
+			while(avRoomsIt.hasNext()) {
+    			room = avRoomsIt.next();
+    			System.out.printf(Msg.ROOM_LIST_FORMAT.getMsg(), room.getLocal(), room.getRoomCode(), room.getUniversityName(), room.getResidence());
+    		}
+		}
+		catch(NoRoomsInLocalidadeException e) {
+			System.out.println(e.getMessage());
+		}	
+	}
+
+	/**
      * Loads the program from an external file if the file exists
      *
      * @return
