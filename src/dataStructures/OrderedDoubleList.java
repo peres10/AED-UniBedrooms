@@ -270,7 +270,7 @@ public class OrderedDoubleList<K extends Comparable<K>, V>
 		if ((node == null) || (node.getElement().getKey().compareTo(key)!=0))
 			return null;
 		else {
-            //TODO: Left as an exercise.
+            //TOD: Left as an exercise.
             if(node==head)
                 return this.removeFirst();
             else if(node==tail)

@@ -1,5 +1,7 @@
 package unibedrooms;
 
+import dataStructures.Entry;
+import dataStructures.OrderedDictionary;
 import exceptions.*;
 
 import java.io.Serializable;
@@ -138,12 +140,14 @@ public interface UniBedroomsDataBase extends Serializable {
     */
     Iterator<Student> listApplications(String code, String loginManager) throws RoomDoesNotExistException, NonAuthorizedOperationException, NoApplicationsToRoomException;
 
+
     /**
      * Lists all rooms in the system
      * @return Iterator of the list of rooms in the system
      * @throws NoRoomsException - if there are no rooms in the system
      */
-	Iterator<Room> listAllRooms() throws NoRoomsException;
+	Iterator<Entry<String, OrderedDictionary<String, Room>>> listAllRooms() throws NoRoomsException;
 
-	Iterator<Room> listAvailableRooms(String localidade) throws NoRoomsInLocalidadeException;
+    Iterator<Entry<String, Room>> listRoomsInLocation(String location);
+	//Iterator<Room> listAvailableRooms(String localidade) throws NoRoomsInLocalidadeException;
 }

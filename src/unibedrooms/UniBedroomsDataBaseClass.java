@@ -1,8 +1,9 @@
 package unibedrooms;
 
-import dataStructures.DoubleList;
-import dataStructures.Iterator;
+import dataStructures.*;
 import exceptions.*;
+
+import java.util.Locale;
 
 
 /**
@@ -19,21 +20,29 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
     /**
      * The users in the database
      */
-    private DoubleList<User> users;
+    //private DoubleList<User> users;
+    private Dictionary<String,User> users;
 
     /**
      * The rooms in the database
       */
-    private DoubleList<Room> rooms;
+    //private List<Room> rooms;
+    private Dictionary<String,Room> rooms;
 
     static final String stateOccupied="ocupado";
-    
+
+    private OrderedDictionary<String,OrderedDictionary<String,Room>> roomsInALocation;
+
+
+
     /**
      * A Database that has a list of users and a list of rooms
      */
     public UniBedroomsDataBaseClass(){
-        users = new DoubleList<User>();
-        rooms = new DoubleList<Room>();
+        //users = new DoubleList<User>();
+        users = new SepChainHashTable<>(25);
+        rooms = new SepChainHashTable<>(25);
+        roomsInALocation = new OrderedDoubleList<>();
     }
 
 
@@ -42,7 +51,8 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
         if(searchUser(login) != null)
             throw new UserAlreadyExistsException();
         else{
-            users.addLast(new StudentClass(login,name,university,age,local));
+            //users.addLast(new StudentClass(login,name,university,age,local));
+            users.insert(login.toLowerCase(),new StudentClass(login,name,university,age,local));
         }
     }
 
@@ -51,21 +61,32 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
 	    if(searchUser(login) != null)
 	        throw new UserAlreadyExistsException();
 	    else{
-	        users.addLast(new ManagerClass(login,name,university));
+	        //users.addLast(new ManagerClass(login,name,university));
+            users.insert(login.toLowerCase(),new ManagerClass(login,name,university));
 	    }
 	}
 
 
 	@Override
 	public void addRoom(String code, String login, String nameResidence, String universityName, String local, int floor, String description) throws RoomAlreadyExistsException, ManagerDoesNotExistException, NonAuthorizedOperationException {
-		if(searchRoom(code) != null)
+		if(searchRoom(code.toLowerCase()) != null)
 	        throw new RoomAlreadyExistsException();
 		Manager manager = getManager(login);
 	    if(!managerFromUniversity(manager,universityName))
 	        throw new NonAuthorizedOperationException();
 	    else{
-	        rooms.addLast(new RoomClass(code,nameResidence,universityName,local,floor,description, manager));
-	    }
+	        //rooms.addLast(new RoomClass(code,nameResidence,universityName,local,floor,description, manager));
+            Room newRoom = new RoomClass(code,nameResidence,universityName,local,floor,description,manager);
+            rooms.insert(code.toLowerCase(), newRoom);
+	        OrderedDictionary<String,Room> localRooms=this.searchLocation(local);
+            if(localRooms==null) {
+                localRooms = new BinarySearchTree<>();
+                localRooms.insert(code, newRoom);
+                roomsInALocation.insert(local, localRooms);
+            }
+            else
+                localRooms.insert(code,newRoom);
+        }
 	}
 
 
@@ -89,7 +110,7 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
 
 	@Override
     public Student getStudent(String login) throws StudentDoesNotExistException {
-        User student = searchUser(login);
+        User student = searchUser(login.toLowerCase());
         if(!(student instanceof Student))
             throw new StudentDoesNotExistException();
         else{
@@ -99,7 +120,7 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
 
     @Override
     public Manager getManager(String login) throws ManagerDoesNotExistException {
-        User manager = searchUser(login);
+        User manager = searchUser(login.toLowerCase());
         if(!(manager instanceof Manager))
             throw new ManagerDoesNotExistException();
         else{
@@ -127,12 +148,17 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
     @Override
     public void removeRoom(String code, String loginManager) throws RoomDoesNotExistException, NonAuthorizedOperationException, ActiveApplicationException {
         Room room = getRoom(code);
+        if(room == null)
+            throw new RoomDoesNotExistException();
         if(!room.getManagerLogin().equals(loginManager))
             throw new NonAuthorizedOperationException();
         if(room.hasRoomApplication())
             throw new ActiveApplicationException();
-        else
-            rooms.remove(room);
+        else {
+            String local = room.getLocal();
+            searchLocation(local).remove(code);
+            rooms.remove(code.toLowerCase());
+        }
     }
 
     @Override
@@ -161,18 +187,31 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
     }
 
 
-	@Override
-	public Iterator<Room> listAllRooms() throws NoRoomsException{
+
+    //@Override
+    public Iterator<Entry<String, Room>> listRoomsInLocation(String location){
+        return roomsInALocation.find(location).iterator();
+    }
+
+	//@Override
+	public Iterator<Entry<String, OrderedDictionary<String, Room>>> listAllRooms() throws NoRoomsException{
 		// TODO Auto-generated method stub
-		return null;
-	}
+        if(rooms.isEmpty())
+            throw new NoRoomsException();
+        return roomsInALocation.iterator();
+    }
+
+    //@Override
+    /*public Iterator<Room> listAllRoomsInLocation() {
+
+    }*/
 
 
-	@Override
+	/*@Override
 	public Iterator<Room> listAvailableRooms(String localidade) throws NoRoomsInLocalidadeException {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}*/
 
 
 	/**
@@ -182,13 +221,7 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
 	 * @return - if student exists returns it, if not returns null
 	 */
     private User searchUser(String login){
-        Iterator<User> it = users.iterator();
-        while(it.hasNext()){
-            User user = it.next();
-            if(user.getLogin().equalsIgnoreCase(login))
-                return user;
-        }
-        return null;
+        return users.find(login);
     }
     
     /**
@@ -198,13 +231,7 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
      * @return - if room exists returns it, if not returns null
      */
     private Room searchRoom(String roomCode){
-        Iterator<Room> it = rooms.iterator();
-        while(it.hasNext()){
-            Room room = it.next();
-            if(room.getRoomCode().equalsIgnoreCase(roomCode))
-                return room;
-        }
-        return null;
+        return rooms.find(roomCode.toLowerCase());
     }
 
     /**
@@ -231,4 +258,9 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
 			return true;
 		return false;
 	}
+
+
+    private OrderedDictionary<String, Room> searchLocation(String location){
+        return roomsInALocation.find(location);
+    }
 }	

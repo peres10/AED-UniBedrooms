@@ -1,3 +1,5 @@
+import dataStructures.Entry;
+import dataStructures.OrderedDictionary;
 import exceptions.*;
 import unibedrooms.*;
 
@@ -30,7 +32,7 @@ public class Main {
         ROOM_ADDED("Registo de quarto executado."),ROOM_DATA("%s %s\n%s\n%s\n%d\n%s\n%s\n"),
         ROOM_MODIFIED("Estado de quarto actualizado."),ROOM_REMOVED("Remocao de quarto executada."),
         APPLICATION_ADDED("Registo de candidatura executado."),APPLICATION_ACCEPTED("Aceitacao de candidatura executada."),
-        APPLICATION_TO_ROOM_LIST_FORMAT("%s %s %s\n"),ROOM_LIST_FORMAT("\n%s %s\n%s\n%s\n\n"),
+        APPLICATION_TO_ROOM_LIST_FORMAT("%s %s %s\n"),ROOM_LIST_FORMAT("%s %s\n%s\n%s\n"),
         EXIT_MSG("Obrigado. Ate a proxima.");
 
         private final String msg ;
@@ -99,7 +101,7 @@ public class Main {
                 	listAllRooms(in,data);
                     break;
                 case LL:
-                	listAvailableRooms(in, data);
+//                	/listAvailableRooms(in, data);
                     break;
                 case XS:
                     System.out.println(Msg.EXIT_MSG.getMsg());
@@ -385,12 +387,28 @@ public class Main {
      */
     private static void listAllRooms(Scanner in, UniBedroomsDataBase data) {
     	try {
-    		Iterator<Room> allRoomsIt = data.listAllRooms();
-    		Room room;
-    		while(allRoomsIt.hasNext()) {
-    			room = allRoomsIt.next();
-    			System.out.printf(Msg.ROOM_LIST_FORMAT.getMsg(), room.getLocal(), room.getRoomCode(), room.getUniversityName(), room.getResidence());
-    		}
+    		Iterator<Entry<String, OrderedDictionary<String, Room>>> allRoomsIt = data.listAllRooms();
+            String location;
+            while(allRoomsIt.hasNext()){
+                location = allRoomsIt.next().getKey();
+                Iterator<Entry<String, Room>> localRoomsIt = data.listRoomsInLocation(location);
+                Room nextRoom;
+                while(localRoomsIt.hasNext()){
+                    //System.out.println();
+                    nextRoom = localRoomsIt.next().getValue();
+                    System.out.printf(Msg.ROOM_LIST_FORMAT.getMsg(), nextRoom.getLocal(), nextRoom.getRoomCode(), nextRoom.getUniversityName(), nextRoom.getResidence());
+                    if(localRoomsIt.hasNext())
+                        System.out.println();
+                }
+                //System.out.println();
+                if(allRoomsIt.hasNext())
+                    System.out.println();
+            }
+                /*while(allRoomsIt.hasNext()) {
+                    room = (Room) allRoomsIt.next();
+                    System.out.printf(Msg.ROOM_LIST_FORMAT.getMsg(), room.getLocal(), room.getRoomCode(), room.getUniversityName(), room.getResidence());
+                }*/
+            //System.out.println();
     	} catch(NoRoomsException e) {
     		System.out.println(e.getMessage());
     	}
@@ -407,7 +425,7 @@ public class Main {
 		in.nextLine();
 		
 		try {
-			Iterator<Room> avRoomsIt = data.listAvailableRooms(localidade);
+			Iterator<Entry<String, Room>> avRoomsIt = data.listRoomsInLocation(localidade);
 			Room room;
 			while(avRoomsIt.hasNext()) {
     			room = avRoomsIt.next();

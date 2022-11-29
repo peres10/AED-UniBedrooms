@@ -1,6 +1,7 @@
 package unibedrooms;
 
 import dataStructures.DoubleList;
+import dataStructures.List;
 
 /**
  * @author Alexandre Peres 61615
@@ -23,7 +24,7 @@ public class StudentClass extends AbstractUser implements Student{
      */
     private final String local;
 
-    private DoubleList<Room> roomsToApply;
+    private List<Room> roomsToApply;
     
     /**
      * the StudentClass constructor

@@ -1,12 +1,6 @@
-Registo de estudante executado.
+Inexistencia de quartos.
 
 Registo de estudante executado.
-
-Registo de estudante executado.
-
-Registo de estudante executado.
-
-Utilizador ja existente.
 
 Registo de estudante executado.
 
@@ -14,57 +8,77 @@ Registo de gerente executado.
 
 Registo de gerente executado.
 
-Registo de gerente executado.
+Registo de quarto executado.
 
-Registo de gerente executado.
+Remocao de quarto executada.
 
-Utilizador ja existente.
+Inexistencia de quartos.
 
-Utilizador ja existente.
+Registo de quarto executado.
 
-Utilizador ja existente.
+Registo de quarto executado.
 
-estudante1 nomeEstudante1 19
-localidade1
-universidade1
+Registo de quarto executado.
 
-estudante2 nomeEstudante2 20
-localidade2
-universidade2
+Faro ALGARVE-RF-Q402
+Universidade do Algarve
+Residencia Faro
 
-estudante3 nomeEstudante3 21
-localidade1
-universidade1
+Penha ALGARVE-RER-Q401
+Universidade do Algarve
+Residencia Edificio Rotunda
 
-estudante4 nomeEstudante1 19
-localidade2
-universidade2
+Penha ALGARVE-RER-Q403
+Universidade do Algarve
+Residencia Edificio Rotunda
 
-estudante5 nomeEstudante5 19
-localidade1
-universidade1
+Registo de quarto executado.
 
-Inexistencia do estudante referido.
+Registo de quarto executado.
 
-gerente1 nomeGerente1
-universidade1
+Registo de quarto executado.
 
-gerente2 nomeEstudante2
-universidade2
+Registo de quarto executado.
 
-gerente3 nomeGerente3
-universidade3
+Registo de quarto executado.
 
-gerente4 nomeGerente4
-universidade2
+Registo de quarto executado.
 
-Inexistencia do gerente referido.
+Bolhao PORTO-RAA-Q301
+Universidade do Porto
+Residencia Alberto Amaral
 
-Inexistencia do gerente referido.
+Bolhao PORTO-RAA-Q302
+Universidade do Porto
+Residencia Alberto Amaral
 
-Inexistencia do estudante referido.
+Bolhao PORTO-RAA-Q303
+Universidade do Porto
+Residencia Alberto Amaral
 
-Inexistencia do gerente referido.
+Bolhao PORTO-RAA-Q304
+Universidade do Porto
+Residencia Alberto Amaral
+
+Bolhao PORTO-RAA-Q305
+Universidade do Porto
+Residencia Alberto Amaral
+
+Bolhao PORTO-RAA-Q306
+Universidade do Porto
+Residencia Alberto Amaral
+
+Faro ALGARVE-RF-Q402
+Universidade do Algarve
+Residencia Faro
+
+Penha ALGARVE-RER-Q401
+Universidade do Algarve
+Residencia Edificio Rotunda
+
+Penha ALGARVE-RER-Q403
+Universidade do Algarve
+Residencia Edificio Rotunda
 
 Obrigado. Ate a proxima.
 

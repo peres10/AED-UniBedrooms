@@ -1,107 +1,34 @@
-DQ quarto-g4-10
+LL Alameda
 
-DQ quarto-g4-11
+LL Faro
 
-RQ quarto-g4-10 gerente4
+RQ ALGARVE-RF-Q402 cfigueiras
 
-DQ quarto-g4-10
+LL Faro
 
-DQ quarto-g4-11
+IQ ALGARVE-REQ-Q501 cfigueiras
+Residencia Edificio Quadrado
+Universidade do Algarve
+Olhao
+2
+Quarto individual.
 
-RQ quarto-g4-11 gerente4
+LL Olhao
 
-DQ quarto-g4-9
-
-DQ quarto-g4-10
-
-DQ quarto-g4-11
-
-MQ quarto-g4-9 gerente4
+MQ ALGARVE-REQ-Q501 cfigueiras
 ocupado
 
-IQ quarto-g4-11 gerente4
-residencia do gerente4
-universidade2
-localidade da residencia4
-1
-quarto na residencia do gerente4
+LL Olhao
 
-IC estudante3 quarto-g4-10
+LL Bolhao
 
-DQ quarto-g4-9
+MQ PORTO-RAA-Q305 jantonio
+ocupado
 
-DQ quarto-g4-10
+IC bbarreto PORTO-RAA-Q301
 
-DQ quarto-g4-11
+AC PORTO-RAA-Q301 jantonio bbarreto
 
-IC estudante3 quarto-g4-9
-
-IC estudante2 quarto-g1-1
-
-IC estudante2 quarto-g1-2
-
-IC estudante2 quarto-g1-3
-
-IC estudante5 quarto-g2-1
-
-AC quarto-g2-1 gerente2 estudante1
-
-AC quarto-g2-1 gerente4 estudante5
-
-AC quarto-falha2 gerente5 estudante5
-
-AC quarto-g2-1 gerente2 estudante5
-
-IC estudante3 quarto-g2-1
-
-AC quarto-g2-1 gerente2 estudante1
-
-AC quarto-g4-1 gerente0 estudante1
-
-AC quarto-g4-1 estudante1 estudante1
-
-IC estudante5 quarto-g2-1
-
-AC quarto-g2-1 gerente2 estudante5
-
-LC quarto-g1-1 gerente1
-
-LC quarto-g1-2 gerente1
-
-LC quarto-g1-3 gerente1
-
-LC quarto-g2-1 gerente2
-
-LC quarto-g2-2 gerente4
-
-LC quarto-g4-1 gerente4
-
-LC quarto-g4-2 gerente4
-
-LC quarto-g4-3 gerente4
-
-LC quarto-g4-4 gerente4
-
-LC quarto-g4-5 gerente4
-
-LC quarto-g4-6 gerente4
-
-LC quarto-g4-7 gerente4
-
-LC quarto-g4-8 gerente4
-
-LC quarto-g4-9 gerente4
-
-LC quarto-g4-10 gerente4
-
-LC quarto-g4-11 gerente4
-
-LC quarto-nao-existe gerente4
-
-LC quarto-falha2 gerente5
-
-LC quarto-g1-1 gerente4
-
-LC quarto-g1-1 gerente3
+LL Bolhao
 
 XS

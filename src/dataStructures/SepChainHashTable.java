@@ -1,7 +1,6 @@
 package dataStructures;
 
 import javax.swing.*;
-import java.util.Arrays;
 
 /**
  * Separate Chaining Hash table implementation
@@ -40,7 +39,7 @@ public class SepChainHashTable<K extends Comparable<K>, V>
         table = (Dictionary<K,V>[]) new Dictionary[arraySize];
         for ( int i = 0; i < arraySize; i++ )
             table[i] = new OrderedDoubleList<K,V>();
-            //TOD: Original comentado para nao dar erro de compilacao
+            //TODO: Original comentado para nao dar erro de compilacao
             //table[i] = null;
         maxSize = capacity;
         currentSize = 0;
@@ -101,34 +100,39 @@ public class SepChainHashTable<K extends Comparable<K>, V>
     public Iterator<Entry<K,V>> iterator( )
     {
         //TOD: Left as an exercise.
-        return new SepChainIterator<>(table);
+        return getDictionary().iterator();
     }
 
     private void rehash(){
-
-
-        int newCapacity = this.maxSize*2;
-        int newArraySize = HashTable.nextPrime((int)(1.1 * newCapacity));
+        /*this.maxSize*=2;
+        int newArraySize= HashTable.nextPrime((int) (1.1 * this.maxSize));
         Dictionary<K,V>[] newTable = (Dictionary<K,V>[]) new Dictionary[newArraySize];
-        for ( int i = 0; i < newArraySize; i++ )
-            newTable[i] = new OrderedDoubleList<K,V>();
+        for(int i=0;i<newArraySize;i++){
+            newTable[i]= new OrderedDoubleList<>();
+        }
         Dictionary<K,V> newDictionary;
-        for(int i=0;i<table.length;i++){
+        for(int i=0; i< table.length;i++){
             newDictionary=table[i];
             if(newDictionary!=null){
                 Iterator<Entry<K,V>> it=newDictionary.iterator();
                 while(it.hasNext()){
                     Entry<K,V> nextEntry = it.next();
-                    if (nextEntry != null){
+                    if (nextEntry !=null){
                         int index=Math.abs(nextEntry.getKey().hashCode()) % newTable.length;
                         newTable[index].insert(nextEntry.getKey(),nextEntry.getValue());
                     }
                 }
             }
+        }*/
+        //int newArraySize= HashTable.nextPrime((int) (1.1 * this.maxSize));
+        SepChainHashTable<K,V> newHashTable = new SepChainHashTable<>();
+        Iterator<Entry<K,V>> it = this.iterator();
+        while(it.hasNext()){
+            Entry<K,V> next = it.next();
+            newHashTable.insert(next.getKey(),next.getValue());
         }
-        this.maxSize=newCapacity;
-        this.table=newTable;
-
+        maxSize = newHashTable.maxSize;
+        table = newHashTable.table;
     }
 
     private Dictionary<K,V> getDictionary(){

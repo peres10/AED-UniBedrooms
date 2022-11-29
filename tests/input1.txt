@@ -1,75 +1,95 @@
-IE estudante1 nomeEstudante1
-19 localidade1
-universidade1
+LQ
 
-IE estudante2 nomeEstudante2
-20 localidade2
-universidade2
+IE nmarques Nelson Marques
+20 Castelo Branco
+Universidade do Algarve
 
-IE estudante3 nomeEstudante3
-21 localidade1
-universidade1
+IE bbarreto Bruno Barreto
+22 Covilha
+Universidade do Porto
 
-IE estudante4 nomeEstudante1
-19 localidade2
-universidade2
+IG jantonio Joao Antonio
+Universidade do Porto
 
-IE estudante1 nomeEstudante5
-19 localidade1
-universidade1
+IG cfigueiras Carlos Figueiras
+Universidade do Algarve
 
-IE estudante5 nomeEstudante5
-19 localidade1
-universidade1
+IQ ALGARVE-RER-Q403 cfigueiras
+Residencia Edificio Rotunda
+Universidade do Algarve
+Penha
+2
+Quarto individual.
 
-IG gerente1 nomeGerente1
-universidade1
+RQ ALGARVE-RER-Q403 cfigueiras
 
-IG gerente2 nomeEstudante2
-universidade2
+LQ
 
-IG gerente3 nomeGerente3
-universidade3
+IQ ALGARVE-RER-Q403 cfigueiras
+Residencia Edificio Rotunda
+Universidade do Algarve
+Penha
+2
+Quarto individual.
 
-IG gerente4 nomeGerente4
-universidade2
+IQ ALGARVE-RER-Q401 cfigueiras
+Residencia Edificio Rotunda
+Universidade do Algarve
+Penha
+2
+Quarto individual.
 
-IG gerente2 nomeGerente2
-universidade1
+IQ ALGARVE-RF-Q402 cfigueiras
+Residencia Faro
+Universidade do Algarve
+Faro
+2
+Quarto individual. 
 
-IG estudante5 nomeGerente5
-universidade1
+LQ
 
-IE gerente1 nomeGerente6
-10 localidade1
-universidade1
+IQ PORTO-RAA-Q305 jantonio
+Residencia Alberto Amaral
+Universidade do Porto
+Bolhao
+1
+Quarto individual com casa de banho privada. Janela orientada a poente.
 
-DE estudante1
+IQ PORTO-RAA-Q304 jantonio
+Residencia Alberto Amaral
+Universidade do Porto
+Bolhao
+1
+Quarto individual com casa de banho privada. Janela orientada a poente.
 
-DE estudante2
+IQ PORTO-RAA-Q306 jantonio
+Residencia Alberto Amaral
+Universidade do Porto
+Bolhao
+1
+Quarto individual com casa de banho privada. Janela orientada a poente.
 
-DE estudante3
+IQ PORTO-RAA-Q301 jantonio
+Residencia Alberto Amaral
+Universidade do Porto
+Bolhao
+1
+Quarto individual com casa de banho privada. Janela orientada a poente.
 
-DE estudante4
+IQ PORTO-RAA-Q303 jantonio
+Residencia Alberto Amaral
+Universidade do Porto
+Bolhao
+1
+Quarto individual. Janela orientada a nascente.
 
-DE estudante5
+IQ PORTO-RAA-Q302 jantonio
+Residencia Alberto Amaral
+Universidade do Porto
+Bolhao
+1
+Quarto individual com casa de banho privada. Janela orientada a nascente.
 
-DE gerente1
-
-DG gerente1
-
-DG gerente2
-
-DG gerente3
-
-DG gerente4
-
-DG estudante5
-
-DG estudante2
-
-DE user-nao-existe
-
-DG user-nao-existe
+LQ
 
 XS

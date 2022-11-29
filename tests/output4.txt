@@ -1,135 +1,68 @@
-quarto-g4-10 residencia do gerente4
-universidade2
-localidade da residencia4
-1
-quarto na residencia do gerente4
-livre
+Inexistencia de quartos na localidade referida.
 
-quarto-g4-11 residencia do gerente4
-universidade2
-localidade da residencia4
-1
-quarto na residencia do gerente4
-livre
+Faro ALGARVE-RF-Q402
+Universidade do Algarve
+Residencia Faro
 
 Remocao de quarto executada.
 
-Inexistencia do quarto referido.
-
-quarto-g4-11 residencia do gerente4
-universidade2
-localidade da residencia4
-1
-quarto na residencia do gerente4
-livre
-
-Remocao de quarto executada.
-
-quarto-g4-9 residencia do gerente4
-universidade2
-localidade da residencia4
-1
-quarto na residencia do gerente4
-livre
-
-Inexistencia do quarto referido.
-
-Inexistencia do quarto referido.
-
-Estado de quarto actualizado.
+Inexistencia de quartos na localidade referida.
 
 Registo de quarto executado.
 
-Inexistencia do quarto referido.
+Olhao ALGARVE-REQ-Q501
+Universidade do Algarve
+Residencia Edificio Quadrado
 
-quarto-g4-9 residencia do gerente4
-universidade2
-localidade da residencia4
-1
-quarto na residencia do gerente4
-ocupado
+Estado de quarto actualizado.
 
-Inexistencia do quarto referido.
+Inexistencia de quartos na localidade referida.
 
-quarto-g4-11 residencia do gerente4
-universidade2
-localidade da residencia4
-1
-quarto na residencia do gerente4
-livre
+Bolhao PORTO-RAA-Q301
+Universidade do Porto
+Residencia Alberto Amaral
 
-Quarto ocupado.
+Bolhao PORTO-RAA-Q302
+Universidade do Porto
+Residencia Alberto Amaral
+
+Bolhao PORTO-RAA-Q303
+Universidade do Porto
+Residencia Alberto Amaral
+
+Bolhao PORTO-RAA-Q304
+Universidade do Porto
+Residencia Alberto Amaral
+
+Bolhao PORTO-RAA-Q305
+Universidade do Porto
+Residencia Alberto Amaral
+
+Bolhao PORTO-RAA-Q306
+Universidade do Porto
+Residencia Alberto Amaral
+
+Estado de quarto actualizado.
 
 Registo de candidatura executado.
-
-Registo de candidatura executado.
-
-Registo de candidatura executado.
-
-Registo de candidatura executado.
-
-Inexistencia da candidatura referida.
-
-Operacao nao autorizada.
-
-Inexistencia do quarto referido.
 
 Aceitacao de candidatura executada.
 
-Quarto ocupado.
+Bolhao PORTO-RAA-Q302
+Universidade do Porto
+Residencia Alberto Amaral
 
-Inexistencia da candidatura referida.
+Bolhao PORTO-RAA-Q303
+Universidade do Porto
+Residencia Alberto Amaral
 
-Operacao nao autorizada.
+Bolhao PORTO-RAA-Q304
+Universidade do Porto
+Residencia Alberto Amaral
 
-Operacao nao autorizada.
-
-Quarto ocupado.
-
-Inexistencia da candidatura referida.
-
-estudante1 nomeEstudante1 universidade1
-estudante2 nomeEstudante2 universidade2
-
-estudante1 nomeEstudante1 universidade1
-estudante2 nomeEstudante2 universidade2
-
-estudante1 nomeEstudante1 universidade1
-estudante2 nomeEstudante2 universidade2
-
-Inexistencia de candidaturas.
-
-estudante2 nomeEstudante2 universidade2
-
-estudante1 nomeEstudante1 universidade1
-
-estudante1 nomeEstudante1 universidade1
-
-estudante1 nomeEstudante1 universidade1
-
-estudante1 nomeEstudante1 universidade1
-
-estudante1 nomeEstudante1 universidade1
-
-estudante1 nomeEstudante1 universidade1
-
-estudante1 nomeEstudante1 universidade1
-
-estudante2 nomeEstudante2 universidade2
-
-Inexistencia de candidaturas.
-
-Inexistencia do quarto referido.
-
-Inexistencia de candidaturas.
-
-Inexistencia do quarto referido.
-
-Inexistencia do quarto referido.
-
-Operacao nao autorizada.
-
-Operacao nao autorizada.
+Bolhao PORTO-RAA-Q306
+Universidade do Porto
+Residencia Alberto Amaral
 
 Obrigado. Ate a proxima.
 

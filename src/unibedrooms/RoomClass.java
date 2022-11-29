@@ -2,6 +2,7 @@ package unibedrooms;
 
 import dataStructures.DoubleList;
 import dataStructures.Iterator;
+import dataStructures.List;
 import exceptions.ActiveApplicationException;
 
 /**
@@ -66,7 +67,7 @@ public class RoomClass implements Room {
     /**
      * List of candidatures to the room
      */
-    DoubleList<Student> studentsApplying;
+    List<Student> studentsApplying;
 
     /**
      *
