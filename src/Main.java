@@ -101,7 +101,7 @@ public class Main {
                 	listAllRooms(in,data);
                     break;
                 case LL:
-//                	/listAvailableRooms(in, data);
+                   	listAvailableRooms(in, data);
                     break;
                 case XS:
                     System.out.println(Msg.EXIT_MSG.getMsg());
@@ -387,7 +387,7 @@ public class Main {
      */
     private static void listAllRooms(Scanner in, UniBedroomsDataBase data) {
     	try {
-    		Iterator<Entry<String, OrderedDictionary<String, Room>>> allRoomsIt = data.listAllRooms();
+    		/*Iterator<Entry<String, OrderedDictionary<String, Room>>> allRoomsIt = data.listAllRooms();
             String location;
             while(allRoomsIt.hasNext()){
                 location = allRoomsIt.next().getKey();
@@ -409,6 +409,14 @@ public class Main {
                     System.out.printf(Msg.ROOM_LIST_FORMAT.getMsg(), room.getLocal(), room.getRoomCode(), room.getUniversityName(), room.getResidence());
                 }*/
             //System.out.println();
+            Iterator<Room> it = data.listAllRooms();
+            Room nextRoom;
+            while(it.hasNext()){
+                nextRoom = it.next();
+                System.out.printf(Msg.ROOM_LIST_FORMAT.getMsg(), nextRoom.getLocal(), nextRoom.getRoomCode(), nextRoom.getUniversityName(), nextRoom.getResidence());
+                if(it.hasNext())
+                    System.out.println();
+            }
     	} catch(NoRoomsException e) {
     		System.out.println(e.getMessage());
     	}
@@ -425,16 +433,18 @@ public class Main {
 		in.nextLine();
 		
 		try {
-			Iterator<Entry<String, Room>> avRoomsIt = data.listRoomsInLocation(localidade);
-			Room room;
+			Iterator<Room> avRoomsIt = data.listAvailableRoomsInLocation(localidade);
+			Room room=null;
 			while(avRoomsIt.hasNext()) {
     			room = avRoomsIt.next();
     			System.out.printf(Msg.ROOM_LIST_FORMAT.getMsg(), room.getLocal(), room.getRoomCode(), room.getUniversityName(), room.getResidence());
-    		}
+                if(avRoomsIt.hasNext())
+                    System.out.println();
+            }
 		}
 		catch(NoRoomsInLocalidadeException e) {
 			System.out.println(e.getMessage());
-		}	
+		}
 	}
 
 	/**

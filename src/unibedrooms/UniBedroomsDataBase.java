@@ -146,8 +146,10 @@ public interface UniBedroomsDataBase extends Serializable {
      * @return Iterator of the list of rooms in the system
      * @throws NoRoomsException - if there are no rooms in the system
      */
-	Iterator<Entry<String, OrderedDictionary<String, Room>>> listAllRooms() throws NoRoomsException;
+    Iterator<Room> listAllRooms() throws NoRoomsException;
 
-    Iterator<Entry<String, Room>> listRoomsInLocation(String location);
+    //Iterator<Entry<String, Room>> listRoomsInLocation(String location);
 	//Iterator<Room> listAvailableRooms(String localidade) throws NoRoomsInLocalidadeException;
+
+    public Iterator<Room> listAvailableRoomsInLocation(String location) throws NoRoomsInLocalidadeException;
 }

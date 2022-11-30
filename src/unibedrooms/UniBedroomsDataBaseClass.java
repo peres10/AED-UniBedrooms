@@ -78,11 +78,11 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
 	        //rooms.addLast(new RoomClass(code,nameResidence,universityName,local,floor,description, manager));
             Room newRoom = new RoomClass(code,nameResidence,universityName,local,floor,description,manager);
             rooms.insert(code.toLowerCase(), newRoom);
-	        OrderedDictionary<String,Room> localRooms=this.searchLocation(local);
+	        OrderedDictionary<String,Room> localRooms=this.searchLocation(local.toLowerCase());
             if(localRooms==null) {
                 localRooms = new BinarySearchTree<>();
                 localRooms.insert(code, newRoom);
-                roomsInALocation.insert(local, localRooms);
+                roomsInALocation.insert(local.toLowerCase(), localRooms);
             }
             else
                 localRooms.insert(code,newRoom);
@@ -156,8 +156,11 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
             throw new ActiveApplicationException();
         else {
             String local = room.getLocal();
-            searchLocation(local).remove(code);
+            searchLocation(local.toLowerCase()).remove(code);
+            if(roomsInALocation.find(local.toLowerCase()).isEmpty())
+                roomsInALocation.remove(local.toLowerCase());
             rooms.remove(code.toLowerCase());
+
         }
     }
 
@@ -194,17 +197,25 @@ public class UniBedroomsDataBaseClass implements UniBedroomsDataBase {
     }
 
 	//@Override
-	public Iterator<Entry<String, OrderedDictionary<String, Room>>> listAllRooms() throws NoRoomsException{
+	public Iterator<Room> listAllRooms() throws NoRoomsException{
 		// TODO Auto-generated method stub
         if(rooms.isEmpty())
             throw new NoRoomsException();
-        return roomsInALocation.iterator();
+        //return roomsInALocation.iterator();
+        Iterator<Room> it =new AllRoomsOrderIterator(roomsInALocation);
+        return it;
     }
 
     //@Override
-    /*public Iterator<Room> listAllRoomsInLocation() {
-
-    }*/
+    public Iterator<Room> listAvailableRoomsInLocation(String location) throws NoRoomsInLocalidadeException{
+        OrderedDictionary<String, Room> roomsInSpecificLocation = searchLocation(location.toLowerCase());
+        if(roomsInSpecificLocation==null)
+            throw new NoRoomsInLocalidadeException();
+        if(roomsInSpecificLocation.isEmpty())
+            throw new NoRoomsInLocalidadeException();
+        Iterator<Room> it = new AvailableRoomsIterator(roomsInSpecificLocation);
+        return it;
+    }
 
 
 	/*@Override
