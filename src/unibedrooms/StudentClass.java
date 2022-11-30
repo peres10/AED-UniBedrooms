@@ -24,7 +24,10 @@ public class StudentClass extends AbstractUser implements Student{
      */
     private final String local;
 
-    private List<Room> roomsToApply;
+	/**
+	 * List of rooms that a student applied to
+	 */
+    private List<Room> appliedRooms;
     
     /**
      * the StudentClass constructor
@@ -39,7 +42,7 @@ public class StudentClass extends AbstractUser implements Student{
         super(login, name, universityName);
         this.age=age;
         this.local=local;
-        this.roomsToApply = new DoubleList<>();
+        this.appliedRooms = new DoubleList<>();
     }
 
     @Override
@@ -54,13 +57,13 @@ public class StudentClass extends AbstractUser implements Student{
 
     @Override
     public int getNumberApplications() {
-		return roomsToApply.size();
+		return appliedRooms.size();
 	}
 
     @Override
 	public boolean hasApplicationToRoom(Room room) {
-		for(int i = 0; i < roomsToApply.size(); i++) {
-			if(roomsToApply.get(i) == room)
+		for(int i = 0; i < appliedRooms.size(); i++) {
+			if(appliedRooms.get(i) == room)
 				return true;
 		}
 			
@@ -69,16 +72,16 @@ public class StudentClass extends AbstractUser implements Student{
     
     @Override
 	public void addRoomApplication(Room roomToApply) {
-		if(roomsToApply.size() < 10) {
-			this.roomsToApply.addLast(roomToApply);;
+		if(appliedRooms.size() < 10) {
+			this.appliedRooms.addLast(roomToApply);
 		}
 	}
 
 	@Override
 	public void removeApplication(Room roomToApply) {
-		for(int i = 0; i < this.roomsToApply.size(); i++) {
-			if(this.roomsToApply.get(i) == roomToApply) {
-				this.roomsToApply.remove(i);
+		for(int i = 0; i < this.appliedRooms.size(); i++) {
+			if(this.appliedRooms.get(i) == roomToApply) {
+				this.appliedRooms.remove(i);
 				return;
 			}
 		}
@@ -87,10 +90,10 @@ public class StudentClass extends AbstractUser implements Student{
 	@Override
 	public void removeAllApplicationsFromStudent() {
 		Room roomToApply;
-		while(this.roomsToApply.size() != 0) {
-			roomToApply = this.roomsToApply.getFirst();
+		while(this.appliedRooms.size() != 0) {
+			roomToApply = this.appliedRooms.getFirst();
 			roomToApply.removeApplicationFromStudent(this);
-			this.roomsToApply.removeFirst();
+			this.appliedRooms.removeFirst();
 		}
 	}
 }

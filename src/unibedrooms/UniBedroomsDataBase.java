@@ -1,11 +1,7 @@
 package unibedrooms;
 
-import dataStructures.Entry;
-import dataStructures.OrderedDictionary;
 import exceptions.*;
-
 import java.io.Serializable;
-
 import dataStructures.Iterator;
 
 /**
@@ -24,7 +20,7 @@ public interface UniBedroomsDataBase extends Serializable {
      * @param university - the name of the student's university
      * @throws UserAlreadyExistsException - if there is someone with the same login already registered
      */
-     void addStudent(String login,String name,int age,String local,String university) throws UserAlreadyExistsException;
+    void addStudent(String login,String name,int age,String local,String university) throws UserAlreadyExistsException;
 
     /**
      * Gets a student registered in the system
@@ -104,7 +100,7 @@ public interface UniBedroomsDataBase extends Serializable {
 
     /**
      * Inserts an application to a room
-     * 
+     *
      * @param login - the login of a student
      * @param code - a code of a room
      * @throws StudentDoesNotExistException - if a student with a given login does not exist in the system
@@ -115,10 +111,10 @@ public interface UniBedroomsDataBase extends Serializable {
      */
     void insertApplication(String login, String code) throws StudentDoesNotExistException, NonAuthorizedOperationException, RoomDoesNotExistException, RoomOccupiedException, AlreadyExistsApplicationException;
 
-	
+
     /**
      * Accepts an application to a room
-     * 
+     *
      * @param code - a code of a room
      * @param loginManager - the login of the manager of the room
      * @param loginStudent - the login of the student
@@ -129,27 +125,32 @@ public interface UniBedroomsDataBase extends Serializable {
     void acceptApplication(String code, String loginManager, String loginStudent) throws RoomDoesNotExistException, NonAuthorizedOperationException, ApplicationDoesNotExistException;
 
     /**
-    * Lists all applications to a room
-    * 
-    * @param code - a code of a room
-    * @param loginStudent - the login of the student
-    * @return - Iterator of the list of applications in a room
-    * @throws RoomDoesNotExistException - if the room with the given code does not exist
-    * @throws NonAuthorizedOperationException - if the room is occupied
-    * @throws NoApplicationsToRoomException - if the room has no applications
-    */
+     * Lists all applications to a room
+     *
+     * @param code - a code of a room
+     * @param loginManager - the login of the student
+     * @return - Iterator of the   of applications in a room
+     * @throws RoomDoesNotExistException - if the room with the given code does not exist
+     * @throws NonAuthorizedOperationException - if the room is occupied
+     * @throws NoApplicationsToRoomException - if the room has no applications
+     */
     Iterator<Student> listApplications(String code, String loginManager) throws RoomDoesNotExistException, NonAuthorizedOperationException, NoApplicationsToRoomException;
 
 
     /**
      * Lists all rooms in the system
-     * @return Iterator of the list of rooms in the system
+     *
+     * @return Iterator of all the rooms in the system ordered firstly by location then my code
      * @throws NoRoomsException - if there are no rooms in the system
      */
     Iterator<Room> listAllRooms() throws NoRoomsException;
 
-    //Iterator<Entry<String, Room>> listRoomsInLocation(String location);
-	//Iterator<Room> listAvailableRooms(String localidade) throws NoRoomsInLocalidadeException;
-
-    public Iterator<Room> listAvailableRoomsInLocation(String location) throws NoRoomsInLocalidadeException;
+    /**
+     * Lists all rooms available in a location ordered by their code
+     *
+     * @param location - the location of the rooms
+     * @return - Iterator all the rooms available in a location
+     * @throws NoRoomsInLocationException - if there are no room in the location specified
+     */
+    Iterator<Room> listAvailableRoomsInLocation(String location) throws NoRoomsInLocationException;
 }

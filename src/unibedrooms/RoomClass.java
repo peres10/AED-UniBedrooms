@@ -60,14 +60,14 @@ public class RoomClass implements Room {
     /**
      * The manager of the room
      */
-    private Manager manager;
+    private final Manager manager;
     
     private Student studentResident;
 
     /**
      * List of candidatures to the room
      */
-    List<Student> studentsApplying;
+    private List<Student> studentsApplying;
 
     /**
      *

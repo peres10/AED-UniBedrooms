@@ -94,7 +94,7 @@ public interface Room extends Serializable {
 	/**
 	 * Adds a room application
 	 * 
-	 * @param application - application to a room
+	 * @param studentApplying - student that is applying to the room
 	 */
 	void addRoomApplication(Student studentApplying);
 

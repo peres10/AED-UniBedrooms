@@ -4,7 +4,7 @@ package exceptions;
  * @author Alexandre Peres 61615
  * @author Tomás Ferreira 61733
  */
-public class NoRoomsInLocalidadeException extends Exception{
+public class NoRoomsInLocationException extends Exception{
 
     /**
      * Serial Version UID of the Class
@@ -13,7 +13,7 @@ public class NoRoomsInLocalidadeException extends Exception{
 
     private static final String errMsg = "Inexistencia de quartos na localidade referida.";
 
-    public NoRoomsInLocalidadeException(){
+    public NoRoomsInLocationException(){
         super(errMsg);
     }
 

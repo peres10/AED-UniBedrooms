@@ -4,25 +4,50 @@ import dataStructures.Entry;
 import dataStructures.Iterator;
 import dataStructures.NoSuchElementException;
 import dataStructures.OrderedDictionary;
-import exceptions.NoRoomsInLocalidadeException;
+import exceptions.NoRoomsInLocationException;
 
+/**
+ * @author Alexandre Peres 61615
+ * @author Tomás Ferreira 61733
+ */
 public class AvailableRoomsIterator implements Iterator<Room> {
 
+    /**
+     * Serial Version UID of the class
+     */
+    private static final long serialVersionUID = 0L;
+
+    /**
+     * Iterator of the dictionary
+     */
     Iterator<Entry<String, Room>> allRoomIterator;
+
+    /**
+     * Dictionary of rooms
+     */
     OrderedDictionary<String,Room> dic;
 
+    /**
+     * Next room to return
+     */
     Room nextToReturn;
 
-    public  AvailableRoomsIterator(OrderedDictionary<String,Room> dic) throws NoRoomsInLocalidadeException {
+    /**
+     * Iterator of the available rooms in a location
+     *
+     * @param dic - dictionary of rooms
+     * @throws NoRoomsInLocationException - if there are no room in the location specified
+     */
+    public  AvailableRoomsIterator(OrderedDictionary<String,Room> dic) throws NoRoomsInLocationException {
         this.dic = dic;
         init();
     }
 
-    private void init() throws NoRoomsInLocalidadeException{
+    private void init() throws NoRoomsInLocationException{
         allRoomIterator=dic.iterator();
         nextToReturn=getNextFree();
         if(nextToReturn==null)
-            throw new NoRoomsInLocalidadeException();
+            throw new NoRoomsInLocationException();
     }
 
     @Override
@@ -43,6 +68,11 @@ public class AvailableRoomsIterator implements Iterator<Room> {
         nextToReturn=getNextFree();
     }
 
+    /**
+     * Returns the next room in the iterator that is available
+     *
+     * @return - if there is an available room returns it, if not returns null
+     */
     private Room getNextFree(){
         Room room=null;
         while(allRoomIterator.hasNext()){
