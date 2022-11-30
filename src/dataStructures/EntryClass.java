@@ -1,6 +1,6 @@
 package dataStructures;
 
-public class EntryClass<K,V> implements Entry<K,V> {
+public class EntryClass<K,V> implements Entry<K,V>,SetEntry<K,V> {
 
     private K key;
 
@@ -21,11 +21,11 @@ public class EntryClass<K,V> implements Entry<K,V> {
         return value;
     }
 
-    protected void setValue(V newValue) {
+    public void setValue(V newValue) {
         this.value=newValue;
     }
 
-    protected void setKey(K newKey) {
+    public void setKey(K newKey) {
         this.key=newKey;
     }
 }

@@ -145,8 +145,9 @@ public class OrderedDoubleList<K extends Comparable<K>, V>
         V returnValue=null;
 		if ((node!=null) && (node.getElement().getKey().compareTo(key)==0)){
             //TODO: Left as an exercise.
+            SetEntry<K,V> element = (SetEntry<K, V>)node.getElement();
             returnValue = node.getElement().getValue();
-            ((EntryClass)node.getElement()).setValue(value);
+            element.setValue(value);
 		}
 		else {
 		  Entry<K,V> newEntry=new EntryClass<K,V> (key, value);
